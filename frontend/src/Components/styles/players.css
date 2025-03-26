@@ -1,0 +1,47 @@
+
+.players-div{
+    margin: 10px;
+
+    display: flex;
+    flex-direction: column;
+}
+.players-list{
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.players-list div{
+    border: 2px solid;
+    width: 200px;
+    height: 75px;
+    border-radius: 20px;
+    margin: 10px;
+    background-color: darkslategray;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.players-list div:hover{
+    background-color: darkcyan;
+}
+
+.players-list a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.players-div ul li{
+    list-style-type: none;;
+    text-align: center;
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

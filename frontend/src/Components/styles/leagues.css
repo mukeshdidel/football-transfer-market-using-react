@@ -1,0 +1,263 @@
+
+
+
+
+.leagues-div {
+
+    display: flex;
+    align-items: stretch; 
+    flex-direction: row;
+
+    width: 100%;
+    height: 100%;
+
+}
+
+
+.search-bar {
+    background-color: white;
+    width:75%;
+    border-radius: 10px;
+    height: 2.5rem;
+    padding: 0 15px;
+    box-shadow:  0px 0px 0px whitesmoke;
+    margin: 10px;
+    
+}
+
+.search-bar input {
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    width: 100%;
+}
+
+.search-bar input:focus{
+    outline: none;
+}
+
+.leagues-list {
+    min-width: 250px;
+    height: 100%; 
+
+    
+    display: flex;
+    flex-direction: column; 
+    flex: 1; 
+    overflow-y: auto; 
+    align-items: center;
+}
+
+.leagues-list ul{
+
+
+    display  : flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.leagues-list h2{
+    margin-bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+.leagues-list li{
+
+
+    min-width: 200px;
+    height: 50px;
+    margin: 5px;
+}
+
+
+.league{
+    border: 1px solid whitesmoke;
+    width: 100%;
+    min-width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    background-color: darkslategray;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.leagues-list p{
+    color : grey;
+}
+
+.league:hover{
+    background-color: darkslateblue;
+}
+
+.leagues-list a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.leagues-div ul li{
+
+    list-style-type: none;;
+    text-align: center;
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.league-info{
+
+
+    border: 1px solid whitesmoke;
+    margin-right: 10px;
+    border-radius: 20px;;
+    background-color: darkslategray;
+    width: 75%;
+    height: 100%;
+    overflow-y: auto;  
+
+
+    display: grid;
+    grid-template-rows: 1fr 2fr 2fr;
+}
+
+.league-description{
+
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    background-color: rgb(52,51,51);
+    color: whitesmoke;
+    text-align: center;
+
+}
+
+.league-description h2{
+    font-family: 'Courier New', Courier, monospace;
+    margin: 10px;
+}
+
+.league-description p{
+    font-family: 'Courier New', Courier, monospace;
+    margin: 10px;
+    color: lightblue
+}
+
+.league-info form{   
+
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(52,51,51);
+    height: 200px;
+    color: whitesmoke;
+    font-family:'Courier New', Courier, monospace ;
+
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.league-info form input{
+    height: 25px;
+    padding: 5px;
+    margin: 5px;
+    border-radius:5px;
+    border: none;
+}
+
+.league-info form input:focus{
+    outline: none;
+}
+
+.league-info form button{
+    height: 25px;
+    padding: 5px;
+    margin: 5px;
+    border-radius:5px;
+    border: none;
+    background-color: darkslategray;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.league-info form button:hover{
+    background-color: darkslateblue;
+}
+
+
+
+.clubsbyleague-list{
+
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(52,51,51);
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.clubsbyleague-list li{
+    padding: 0px;
+    width: 200px;
+    height: 75px;
+}
+.clubsbyleague-list div{
+    border: 2px solid;
+    width: 200px;
+    height: 75px;
+    border-radius: 20px;
+    margin: 10px;
+    background-color: darkslategray;
+
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.clubsbyleague-list h4{
+    color : lightgrey;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 10px;
+}
+
+.clubsbyleague-list p{
+    color : lightgrey;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.clubsbyleague-list div:hover{
+    background-color: darkslateblue;
+}
+
+.clubsbyleague-list a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.clubsbyleague-div ul li{
+    list-style-type: none;;
+    text-align: center;
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+

@@ -1,0 +1,26 @@
+
+.nav-bar{
+    padding: 10px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.nav-bar li{
+    margin: 20px;
+    list-style-type: none;
+
+
+}
+
+.nav-bar a{
+    text-decoration: none;    
+    color: grey;
+}
+
+.nav-bar a.active-link{
+    color: whitesmoke;
+}
