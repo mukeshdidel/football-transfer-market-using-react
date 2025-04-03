@@ -1,24 +1,84 @@
 
-.players-div{
-    margin: 10px;
+
+
+
+.players-div {
 
     display: flex;
-    flex-direction: column;
+    align-items: stretch; 
+    flex-direction: row;
+
+    width: 100%;
+    height: 100%
+
 }
-.players-list{
-    padding: 20px;
+
+
+.search-bar {
+    background-color: white;
+    width:75%;
+    border-radius: 10px;
+    height: 2.5rem;
+    padding: 0 15px;
+    box-shadow:  0px 0px 0px whitesmoke;
+    margin: 10px;
+    
+}
+
+.search-bar input {
+    background-color: transparent;
+    border: none;
+    height: 100%;
+    width: 100%;
+}
+
+.search-bar input:focus{
+    outline: none;
+}
+
+.players-list {
+    min-width: 250px;
+    height: 100%; 
+
+    
     display: flex;
+    flex-direction: column; 
+    flex: 1; 
+    overflow-y: auto; 
+    align-items: center;
+}
+
+.players-list ul{
+
+    display  : flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 
 }
 
-.players-list div{
-    border: 2px solid;
-    width: 200px;
-    height: 75px;
+
+.players-list h2{
+    margin-bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+.players-list li{
+
+
+    min-width: 200px;
+    height: 50px;
+    margin: 5px;
+}
+
+
+.player{
+    border: 1px solid whitesmoke;
+    width: 100%;
+    min-width: 200px;
+    height: 50px;
     border-radius: 20px;
-    margin: 10px;
     background-color: darkslategray;
 
 
@@ -28,8 +88,12 @@
     flex-direction: column;
 }
 
-.players-list div:hover{
-    background-color: darkcyan;
+.players-list p{
+    color : grey;
+}
+
+.player:hover{
+    background-color: darkslateblue;
 }
 
 .players-list a{
@@ -38,6 +102,7 @@
 }
 
 .players-div ul li{
+
     list-style-type: none;;
     text-align: center;
     color: whitesmoke;
@@ -45,3 +110,55 @@
     align-items: center;
     justify-content: center;
 }
+
+
+.player-info{
+
+
+    border: 1px solid whitesmoke;
+    margin-right: 10px;
+    border-radius: 20px;;
+    background-color: darkslategray;
+    width: 75%;
+
+
+
+    display: grid;
+    grid-template-rows: 0.5fr 2fr 1fr 2fr 2fr;
+}
+
+.player-description{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    background-color: rgb(52,51,51);
+    color: whitesmoke;
+    text-align: center;
+}
+
+
+.player-description h2{
+    font-family: 'Courier New', Courier, monospace;
+    margin: 10px;
+}
+
+.player-description p{
+    font-family: 'Courier New', Courier, monospace;
+    margin: 10px;
+    color: lightblue
+}
+
+
+
+
+.player-transfers-div{
+
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    background-color: rgb(52,51,51);
+    color: whitesmoke;
+    text-align: center;
+} 

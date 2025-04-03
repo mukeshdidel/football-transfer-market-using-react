@@ -1,0 +1,61 @@
+
+
+
+
+.transfers-div {
+
+    display: flex;
+    align-items: stretch; 
+    flex-direction: row;
+
+    width: 100%;
+    height: 100%
+
+}
+
+
+
+
+
+.transfers-list {
+    min-width: 250px;
+    height: 100%; 
+
+    
+    display: flex;
+    flex-direction: column; 
+    flex: 1; 
+    overflow-y: auto; 
+    align-items: center;
+}
+
+.transfers-list h2{
+    margin-bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+.transfers-list table{  
+    color: whitesmoke;
+    border: 1px solid whitesmoke;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: darkslategray;
+    
+}
+
+.transfers-list table th, td{
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.transfers-list table tr{
+    background-color: rgb(52,51,51);
+}
+
+.transfers-list a{
+    color: white;
+    text-decoration: none;
+}

@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors'
 
-import { getAllLeagues,getLeagueInfoById, getAllClubs,getClubInfoById,getPlayersByClub, addClub, getClubsByLeague, getAllPlayers,addFinance } from './database.js';
+import { getAllLeagues,getLeagueInfoById,addLeague, getAllClubs, getClub, getClubInfoById,getPlayersByClub, addClub, getClubsByLeague, getAllPlayers,getPlayerInfoById, addFinance,transferPlayer, addPlayer,getAllTransfers } from './database.js';
 
 
 const app = express();
@@ -37,6 +37,11 @@ app.get('/leagues/:id', async (req, res) => {
     }
 })
 
+app.post(`/add-league`,async(req, res,)=>{
+    const league = addLeague(req.body.leagueName, req.body.country, req.body.description)
+    res.json(league);
+})
+
 app.get('/clubs', async (req, res) => {
     try{
         const searchQuery = req.query.search || '';
@@ -51,9 +56,10 @@ app.get('/clubs', async (req, res) => {
 
 app.get('/clubs/:id', async (req, res) => {
     try{
-        const club = await getClubInfoById(req.params.id);
+        const club = await getClub(req.params.id);
+        const clubFinance = await getClubInfoById(req.params.id);
         const players = await getPlayersByClub(req.params.id);
-        const clubInfo = {clubObj: club , playersObj: players}
+        const clubInfo = {clubObj: club, clubFinance: clubFinance , playersObj: players}
         res.json(clubInfo);
     }
     catch(error){
@@ -77,8 +83,32 @@ app.post('/add-club', async (req, res) => {
 
 app.get('/players', async (req, res) => {
     try{
-        const players = await getAllPlayers();
+        const searchQuery = req.query.search || '';
+        const players = await getAllPlayers(searchQuery);
         res.json(players);
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).send('Error fetching leagues');
+    }
+})
+
+app.post('/add-player',async  (req, res) => {
+    try{
+        const playerData = req.body;
+        const player = await addPlayer(playerData.formPlayerName, playerData.formPlayerNation, playerData.formPlayerDOB, playerData.formPlayerStartDate, playerData.formPlayerEndDate, playerData.formPlayerWages, playerData.id,playerData.formPlayerPosi);
+        res.json(player);
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).send('Error fetching leagues');
+    }
+})
+
+app.get('/players/:id', async (req, res) => {
+    try{
+        const player = await getPlayerInfoById(req.params.id);
+        res.json(player);
     }
     catch(error){
         console.error(error);
@@ -98,6 +128,39 @@ app.post(`/add-finance`,async (req, res) => {
     }
 })
 
+
+app.post(`/post-transfers`,async (req, res) => {
+    try{
+        const transfers = req.body;
+
+        const response = await transferPlayer(
+            transfers.player_id,
+            transfers.from_club_id,
+            transfers.to_club_id,
+            transfers.transfer_fee,
+            transfers.start_date,
+            transfers.end_date,
+            transfers.player_wages
+        );
+        res.json(response);
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).send('Error posting transfers');
+    }
+})
+
+
+app.get('/transfers' , async (req, res) => {
+    try{
+        const transfers = await getAllTransfers();
+        res.json(transfers);
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).send('Error fetching transfers');
+    }
+})
 
 
 app.use((err,req,res,next) => {

@@ -9,6 +9,7 @@ import Transfers from './Components/Transfers.jsx';
 import Home from './Components/Home.jsx';
 import League from './Components/League.jsx';
 import Club from './Components/Club.jsx';
+import Player from './Components/Player.jsx';
 
 
 import "./App.css";
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
         <Players />
       </>
     ),
+    children: [{
+      path:':id',
+      element: <Player />  
+      }]
   },
   {
     path: "/transfers",

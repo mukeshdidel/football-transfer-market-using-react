@@ -199,7 +199,7 @@
     margin: 10px;
     padding: 10px;
     background-color: rgb(52,51,51);
-    height: 200px;
+    height: 500px;
     color: whitesmoke;
     font-family:'Courier New', Courier, monospace ;
 
@@ -231,6 +231,20 @@
     background-color: darkslategray;
     color: whitesmoke;
     cursor: pointer;
+}
+
+.player-form select{
+    height: 25px;
+    padding: 5px;
+    margin: 5px;
+    border-radius:5px;
+    border: none;
+    color: black;
+    cursor: pointer;
+}
+
+.player-form select:focus{
+    outline: none;
 }
 
 .player-form button:hover{
