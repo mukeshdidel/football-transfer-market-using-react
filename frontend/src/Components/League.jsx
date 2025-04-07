@@ -12,6 +12,7 @@ export default function League(){
 
     const [formClubName, setFormClubName] = useState('');
     const [formClubFoundedYear, setFormClubFoundedYear] = useState('');
+    const [formClubLogo, setFormClubLogo] = useState('');
 
     useEffect(()=>{
         async function fetch(){
@@ -28,11 +29,12 @@ export default function League(){
             alert("Please fill in all fields.");
             return;
         }
-        const ClubData = {formClubName,id,formClubFoundedYear }
+        const ClubData = {formClubName,id,formClubFoundedYear,formClubLogo};
         await addClub(ClubData);
 
         setFormClubName('');
         setFormClubFoundedYear('');
+        setFormClubLogo('');
 
         const fetchedLeagueInfo = await getLeagueInfo(id);
         setLeagueInfo(fetchedLeagueInfo.leagueObj);
@@ -54,6 +56,8 @@ export default function League(){
                 <input type='text' name='clubName' value={formClubName} onChange={e => setFormClubName(e.target.value)} required />
                 <label>Founded Year</label>
                 <input type='number' name='clubFoundedYear' value={formClubFoundedYear} onChange={e => setFormClubFoundedYear(e.target.value)} required />
+                <label>Club Logo URL</label>
+                <input type='text' name='clubLogo' value={formClubLogo} onChange={e => setFormClubLogo(e.target.value)} required />
 
                 <button type='submit'>Submit Club</button>
             </form>
@@ -61,9 +65,14 @@ export default function League(){
             <ul className='clubsbyleague-list'>
                 {clubsByleague.map(club => <li key={club.club_id}>
                     <NavLink to={`/clubs/${club.club_id}`}>
-                        <div>
-                            <h4>{club.club_name}</h4>
-                            <p>{club.founded_year}</p>
+                        <div className='card-div'>
+                            <div>
+                                <h4>{club.club_name}</h4>
+                                <p>{club.founded_year}</p>
+                            </div>
+                            <div>
+                                <img src={club.club_url} alt={club.club_name}/>
+                            </div>
                         </div> 
                     </NavLink>
                 </li>)}

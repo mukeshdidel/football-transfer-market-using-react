@@ -22,6 +22,8 @@ export default function Players() {
 
 
 
+
+
     return (
         <>
         <div className="players-div">
@@ -33,8 +35,10 @@ export default function Players() {
                 <ul >
                     {players.map(player => <li key={player.player_id}>
                             <NavLink to={`/players/${player.player_id}`}>
-                            <div className='club'>
+                            <div className='card-div'>
                                 <h4>{player.player_name}</h4>
+
+                                <p>{player.club_name}</p>
 
                             </div>
                             </NavLink>

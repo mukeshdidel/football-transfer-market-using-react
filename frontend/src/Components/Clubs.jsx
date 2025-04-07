@@ -33,9 +33,15 @@ export default function Leagues() {
                 <ul >
                     {clubs.map(club => <li key={club.club_id}>
                             <NavLink to={`/clubs/${club.club_id}`}>
-                            <div className='club'>
-                                <h4>{club.club_name}</h4>
-                                <p>{club.founded_year}</p>
+                            <div className='card-div'>
+                                <div>
+                                    <h4>{club.club_name}</h4>
+                                    <p>{club.founded_year}</p>   
+                                </div> 
+                                <div>
+                                    <img src={club.club_url} alt={club.club_name}/>
+                                </div>
+
                             </div>
                             </NavLink>
                         </li>)}

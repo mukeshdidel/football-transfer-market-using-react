@@ -33,9 +33,16 @@ export default function Leagues() {
                 <ul >
                     {leagues.map(league => <li key={league.league_id}>
                             <NavLink to={`/leagues/${league.league_id}`}>
-                            <div className='league'>
-                                <h4>{league.league_name}</h4>
-                                <p>{league.country}</p>
+                            <div className='card-div'>
+                                <div>
+                                    <h4>{league.league_name}</h4>
+                                    <p>{league.country}</p>  
+                                </div>
+                                <div>
+                                    <img src={league.league_url} alt={league.league_name}/>
+                                </div>
+
+
                             </div>
                             </NavLink>
                         </li>)}
@@ -48,6 +55,9 @@ export default function Leagues() {
         </>
     );
 }
+
+
+
 
 async function getAllLeagues(input) {
     try {

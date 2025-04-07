@@ -6,6 +6,11 @@ import { api } from './api/data.jsx';
 
 import MakeTransfer from './homeComponents/MakeTransfer.jsx'
 import AddLeague from './homeComponents/AddLeague.jsx';
+import TransferNews from './homeComponents/TransferNews.jsx';
+import LeagueRecords from './homeComponents/LeagueRecords.jsx';
+import ClubRecords from './homeComponents/ClubRecords.jsx';
+import PlayerRecords from './homeComponents/PlayerRecords.jsx';
+import Formation from './homeComponents/Formation.jsx';
 
 export default function Home(){
 
@@ -15,6 +20,11 @@ export default function Home(){
         <div className='home-div'>
             <MakeTransfer/>
             <AddLeague/>
+            <TransferNews/>
+            <LeagueRecords/>
+            <ClubRecords/>
+            <PlayerRecords/>
+            <Formation/>
         </div>
 
         </>

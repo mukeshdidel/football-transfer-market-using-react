@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors'
 
-import { getAllLeagues,getLeagueInfoById,addLeague, getAllClubs, getClub, getClubInfoById,getPlayersByClub, addClub, getClubsByLeague, getAllPlayers,getPlayerInfoById, addFinance,transferPlayer, addPlayer,getAllTransfers } from './database.js';
+import { getAllLeagues,getLeagueInfoById,addLeague, getAllClubs, getClub, getClubInfoById, getTotalClubWages, getPlayersByClub, addClub, getClubsByLeague, getAllPlayers,getPlayerInfoById, addFinance,transferPlayer, addPlayer,getAllTransfers,getTransferOUTclub,getTransferINclub,getPlayerJourney, toalLeageWages, totalLeaguePlayers, totalClubWages, totalClubProfit, totalClubLoss,totalClubNetSpent, ClubAvgAge ,PlayerWages , playerCareerFee, PlayerNoOfTransfers, playerTransferFee, highestWagesFormation, youngestFormation, playerAge, oldestFormation} from './database.js';
 
 
 const app = express();
@@ -38,7 +38,7 @@ app.get('/leagues/:id', async (req, res) => {
 })
 
 app.post(`/add-league`,async(req, res,)=>{
-    const league = addLeague(req.body.leagueName, req.body.country, req.body.description)
+    const league = addLeague(req.body.leagueName, req.body.country, req.body.description, req.body.leagueURL);
     res.json(league);
 })
 
@@ -57,9 +57,16 @@ app.get('/clubs', async (req, res) => {
 app.get('/clubs/:id', async (req, res) => {
     try{
         const club = await getClub(req.params.id);
+
         const clubFinance = await getClubInfoById(req.params.id);
+        const clubWages = await getTotalClubWages(req.params.id);
         const players = await getPlayersByClub(req.params.id);
-        const clubInfo = {clubObj: club, clubFinance: clubFinance , playersObj: players}
+        const transferINS = await getTransferINclub(req.params.id);
+        const transferOUTS = await getTransferOUTclub(req.params.id);
+
+
+        const clubInfo = {clubObj: club, clubFinance: clubFinance , playersObj: players, transferIns : transferINS, transferOuts: transferOUTS, clubWages: clubWages}
+
         res.json(clubInfo);
     }
     catch(error){
@@ -71,7 +78,7 @@ app.get('/clubs/:id', async (req, res) => {
 app.post('/add-club', async (req, res) => {
     try{
 
-        const club = await addClub(req.body.formClubName,req.body.id ,req.body.formClubFoundedYear);
+        const club = await addClub(req.body.formClubName,req.body.id ,req.body.formClubFoundedYear, req.body.formClubLogo);
         res.json(club);
     }
     catch(error){
@@ -96,7 +103,7 @@ app.get('/players', async (req, res) => {
 app.post('/add-player',async  (req, res) => {
     try{
         const playerData = req.body;
-        const player = await addPlayer(playerData.formPlayerName, playerData.formPlayerNation, playerData.formPlayerDOB, playerData.formPlayerStartDate, playerData.formPlayerEndDate, playerData.formPlayerWages, playerData.id,playerData.formPlayerPosi);
+        const player = await addPlayer(playerData.formPlayerName, playerData.formPlayerNation, playerData.formPlayerDOB, playerData.formPlayerStartDate, playerData.formPlayerEndDate, playerData.formPlayerWages, playerData.id,playerData.formPlayerPosi, playerData.formPlayerURL);
         res.json(player);
     }
     catch(error){
@@ -107,7 +114,12 @@ app.post('/add-player',async  (req, res) => {
 
 app.get('/players/:id', async (req, res) => {
     try{
-        const player = await getPlayerInfoById(req.params.id);
+        const playerInfo = await getPlayerInfoById(req.params.id);
+        const playerJourney = await getPlayerJourney(req.params.id);
+        const player ={
+            playerInfo : playerInfo,
+            playerJourney: playerJourney
+        }
         res.json(player);
     }
     catch(error){
@@ -160,6 +172,101 @@ app.get('/transfers' , async (req, res) => {
         console.error(error);
         res.status(500).send('Error fetching transfers');
     }
+})
+
+app.post(`/league-records`, async (req, res) => {
+    try{
+        const query = req.body;
+        let leagueRecords;
+        if(query.query == 'total-league-wages'){
+            leagueRecords = await toalLeageWages(); 
+        }
+        else if(query.query == 'total-league-players'){
+            leagueRecords = await totalLeaguePlayers(); 
+        }
+
+        res.json(leagueRecords);
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).send('Error fetching league records');  
+    }
+})
+
+app.post(`/club-records`, async (req, res) => {
+    try{
+        const query = req.body;
+        let clubRecords;
+        if(query.query == 'total-club-wages'){
+            clubRecords = await totalClubWages(); 
+        }
+        else if(query.query == 'total-club-profit'){
+            clubRecords = await totalClubProfit(); 
+        }
+        else if(query.query == 'total-club-loss'){
+            clubRecords = await totalClubLoss(); 
+        }
+        else if(query.query == 'total-club-net-spent'){
+            clubRecords = await totalClubNetSpent(); 
+        }
+        else if(query.query == 'club-avg-age'){
+            clubRecords = await ClubAvgAge(); 
+        }
+        res.json(clubRecords);
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).send('Error fetching league records');  
+    }
+})
+
+app.post(`/player-records`, async (req, res) => {
+    try{
+        const query = req.body;
+        let playerRecords;
+        if(query.query == 'highest-player-wages'){
+            playerRecords = await PlayerWages(); 
+        }
+        else if(query.query == 'highest-player-career-fee'){
+            playerRecords = await playerCareerFee(); 
+        }
+        else if(query.query == 'player-no-of-transfers'){
+            playerRecords = await PlayerNoOfTransfers(); 
+        }
+        else if(query.query == 'player-transfer-fee'){
+            playerRecords = await playerTransferFee(); 
+        }
+
+        res.json(playerRecords);
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).send('Error fetching league records');  
+    }
+})
+
+
+app.post(`/formation`, async (req, res) => {
+    try{
+        const query = req.body;
+        let formation;
+        if(query.query == 'highest-wages'){
+            formation = await highestWagesFormation(); 
+        }
+        else if(query.query == 'youngest-players'){
+            formation = await youngestFormation(); 
+        }
+        else if(query.query == 'oldest-players'){
+            formation = await oldestFormation(); 
+        }
+
+        res.json(formation);
+    }
+    catch(error){
+        console.error(error);
+        res.status(500).send('Error fetching formation');  
+    }
+
 })
 
 

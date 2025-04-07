@@ -23,15 +23,6 @@ const router = createBrowserRouter([
         <Home />
       </>
     ),
-    /* children: [{
-        path:'courses',
-        element:  
-        },
-        {
-        path:'tests',
-        element: 
-        }
-    ]*/ // we can create these nested paths as well note : dont use '/' in paths of childrens // also use <Outlet/> in your Home component
   },
   {
     path: "/leagues",

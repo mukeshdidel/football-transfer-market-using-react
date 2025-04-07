@@ -9,37 +9,16 @@
     flex-direction: row;
 
     width: 100%;
-    height: 100%;
-
 }
 
 
-.search-bar {
-    background-color: white;
-    width:75%;
-    border-radius: 10px;
-    height: 2.5rem;
-    padding: 0 15px;
-    box-shadow:  0px 0px 0px whitesmoke;
-    margin: 10px;
-    
-}
-
-.search-bar input {
-    background-color: transparent;
-    border: none;
-    height: 100%;
-    width: 100%;
-}
-
-.search-bar input:focus{
-    outline: none;
-}
 
 .leagues-list {
-    min-width: 250px;
-    height: 100%; 
 
+    margin-top: 2rem;;
+    min-width: 250px;
+ 
+    height: 600px;
     
     display: flex;
     flex-direction: column; 
@@ -68,38 +47,11 @@
 
 
     min-width: 200px;
-    height: 50px;
+    height: 75px;
     margin: 5px;
 }
 
 
-.league{
-    border: 1px solid whitesmoke;
-    width: 100%;
-    min-width: 200px;
-    height: 50px;
-    border-radius: 20px;
-    background-color: darkslategray;
-
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.leagues-list p{
-    color : grey;
-}
-
-.league:hover{
-    background-color: darkslateblue;
-}
-
-.leagues-list a{
-    text-decoration: none;
-    color: whitesmoke;
-}
 
 .leagues-div ul li{
 
@@ -113,151 +65,95 @@
 
 
 .league-info{
-
-
-    border: 1px solid whitesmoke;
-    margin-right: 10px;
-    border-radius: 20px;;
-    background-color: darkslategray;
     width: 75%;
     height: 100%;
-    overflow-y: auto;  
 
+    padding: 2rem;
 
     display: grid;
-    grid-template-rows: 1fr 2fr 2fr;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(5,110px);
+    grid-gap: 1rem;
 }
 
 .league-description{
 
-    margin: 10px;
-    padding: 10px;
+    padding: 1rem;
+
     border: 1px solid whitesmoke;
-    border-radius: 20px;
-    background-color: rgb(52,51,51);
-    color: whitesmoke;
+    border-radius: 20px;;
+    background-color: rgba(0, 0, 255, 0.379);
+
+    grid-column: 1/ 9;
+    grid-row: 1 / 3;
+
     text-align: center;
-
-}
-
-.league-description h2{
+    color: whitesmoke;
     font-family: 'Courier New', Courier, monospace;
-    margin: 10px;
+
+    overflow-y: auto; 
 }
 
-.league-description p{
-    font-family: 'Courier New', Courier, monospace;
-    margin: 10px;
-    color: lightblue
-}
 
-.league-info form{   
+
+.league-info form{
+    padding: 1rem;
 
     border: 1px solid whitesmoke;
     border-radius: 20px;
-    margin: 10px;
-    padding: 10px;
-    background-color: rgb(52,51,51);
-    height: 200px;
-    color: whitesmoke;
-    font-family:'Courier New', Courier, monospace ;
+    background-color: rgba(0, 0, 255, 0.379);
 
+    grid-column: 1 / 2;
+    grid-row: 3 / 6;
     
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .league-info form input{
-    height: 25px;
-    padding: 5px;
-    margin: 5px;
-    border-radius:5px;
-    border: none;
-}
 
-.league-info form input:focus{
-    outline: none;
+    padding: 0.2rem;
+    width: 9rem;
+    height: 1.5rem;
+    margin: 0.2rem 0.6rem;
+    border: 1px solid white;
+    border-radius: 8px;
+
 }
 
 .league-info form button{
-    height: 25px;
-    padding: 5px;
-    margin: 5px;
-    border-radius:5px;
-    border: none;
-    background-color: darkslategray;
-    color: whitesmoke;
-    cursor: pointer;
-}
+    width: 9rem;
+    height: 1.5rem;
+    margin: 1rem;
+    background-color: darkslategrey;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
 
+}
 .league-info form button:hover{
-    background-color: darkslateblue;
+    background-color: rgb(30, 46, 46);
 }
-
-
 
 .clubsbyleague-list{
+    padding: 1rem;
 
     border: 1px solid whitesmoke;
     border-radius: 20px;
-    margin: 10px;
-    padding: 10px;
-    background-color: rgb(52,51,51);
+    background-color: rgba(0, 0, 255, 0.379);
 
+    grid-column: 2 / 9;
+    grid-row: 3 / 6;
+    
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-}
-.clubsbyleague-list li{
-    padding: 0px;
-    width: 200px;
-    height: 75px;
-}
-.clubsbyleague-list div{
-    border: 2px solid;
-    width: 200px;
-    height: 75px;
-    border-radius: 20px;
-    margin: 10px;
-    background-color: darkslategray;
-
-
-
-    display: flex;
-    align-items: center;
     justify-content: center;
-    flex-direction: column;
-}
+    align-items: start;
+    align-content: start;
 
-.clubsbyleague-list h4{
-    color : lightgrey;
-    font-family: 'Courier New', Courier, monospace;
-    margin: 10px;
-}
+    overflow-y: auto;
+    overflow-x: hidden;
 
-.clubsbyleague-list p{
-    color : lightgrey;
-    font-family: 'Courier New', Courier, monospace;
 }
-
-.clubsbyleague-list div:hover{
-    background-color: darkslateblue;
-}
-
-.clubsbyleague-list a{
-    text-decoration: none;
-    color: whitesmoke;
-}
-
-.clubsbyleague-div ul li{
-    list-style-type: none;;
-    text-align: center;
-    color: whitesmoke;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 

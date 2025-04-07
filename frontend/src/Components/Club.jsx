@@ -2,7 +2,7 @@
 import {useParams, NavLink} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import {api} from './api/data.jsx';
-
+import moment from "moment";
 
 
 export default function Club(){
@@ -10,9 +10,14 @@ export default function Club(){
 
     const [clubInfo, setClubInfo] = useState({});
     const [clubFinance, setClubFinance] = useState([]);
-    const [playersBYclub, setPlayersBYclub] = useState([]);    
+    const [playersBYclub, setPlayersBYclub] = useState([]);  
+    const [transferIns, setTransferIns] = useState([]);
+    const [transferOuts, setTransferOuts] = useState([]);
+    const [clubWages, setClubWages] = useState();
+    
     const [formFinanceYear, setFormFinanceYear] = useState('');
     const [formFinanceRevenue, setFormFinanceRevenue] = useState('');
+
     
     
     const [formPlayerName, setFormPlayerName] = useState('');
@@ -22,6 +27,8 @@ export default function Club(){
     const [formPlayerEndDate, setFormPlayerEndDate] = useState('');
     const [formPlayerWages, setFormPlayerWages] = useState('');
     const [formPlayerPosi, setFormPlayerPosi] = useState('');
+    const [formPlayerURL, setFormPlayerURL] = useState('');
+
 
 
 
@@ -33,6 +40,12 @@ export default function Club(){
             setClubInfo(fetchedClubInfo.clubObj);
             setClubFinance(fetchedClubInfo.clubFinance);
             setPlayersBYclub(fetchedClubInfo.playersObj);
+            setTransferIns(fetchedClubInfo.transferIns);
+            setTransferOuts(fetchedClubInfo.transferOuts);
+            setClubWages(fetchedClubInfo.clubWages);
+
+            console.log(fetchedClubInfo);
+
         }
         fetch();
     },[id])
@@ -40,7 +53,12 @@ export default function Club(){
     async function hanldePlayerSubmit(e){
         e.preventDefault();
 
-        const playerData = {id,formPlayerName,formPlayerNation,formPlayerDOB,formPlayerStartDate,formPlayerEndDate,formPlayerWages, formPlayerPosi}
+        if(!formPlayerName || !formPlayerDOB || !formPlayerNation || !formPlayerStartDate || !formPlayerEndDate || !formPlayerWages || !formPlayerPosi || !formPlayerURL){
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        const playerData = {id,formPlayerName,formPlayerNation,formPlayerDOB,formPlayerStartDate,formPlayerEndDate,formPlayerWages, formPlayerPosi, formPlayerURL}
         await addPlayer(playerData);
 
         setFormPlayerName('');
@@ -49,6 +67,7 @@ export default function Club(){
         setFormPlayerNation('');
         setFormPlayerStartDate('');
         setFormPlayerWages('');
+        setFormPlayerURL('');
     
 
         const fetchedClubInfo = await getClubInfo(id);
@@ -86,11 +105,16 @@ export default function Club(){
     return (
         <>
         <div className='club-info'>                
-            <div className='club-finance'>
-                <h2>{clubInfo[0]?.club_name || "Loading..."}</h2>
+            <div className='club-description'>
+                <div>                    
+                    <img src={clubInfo[0]?.club_url} />
+                    <h2>{clubInfo[0]?.club_name || "Loading..."}</h2>
+                </div>
+
             </div>
             <div className='club-finance'>
                 <h3>finances</h3>
+                <h4>total wages: {clubWages}</h4>
                 <form className='finance-form' onSubmit={e =>handleFinanceSubmit(e)}>
                     <label>Year</label>
                     <input type='number' name='financeYear' value={formFinanceYear} onChange={e => setFormFinanceYear(e.target.value)} required />  
@@ -133,8 +157,14 @@ export default function Club(){
                 <select value={formPlayerPosi} onChange={e=>setFormPlayerPosi(e.target.value)}  >
                     <option value='gk'>Goalkeeper</option>
                     <option value='cb'>Defender</option>
-                    <option value='mf'>Midfielder</option>
-                    <option value='cf'>Forword</option>
+                    <option value='lb'>Left Back</option>
+                    <option value='rb'>Right Back</option>
+                    <option value='dm'>Defensive Midfielder</option>
+                    <option value='cm'>Central Midfielder</option>
+                    <option value='cam'>Attacking Midfielder</option>
+                    <option value='rw'>Right Winger</option>
+                    <option value='lw'>Left Winger</option>
+                    <option value='cf'>Striker</option>
                 </select>
 
                 <label>Contract start date</label>
@@ -146,13 +176,15 @@ export default function Club(){
                 <label>Wages</label>
                 <input type='number' name='playerWages' value={formPlayerWages} onChange={e => setFormPlayerWages(e.target.value)} required />
                 
+                <label>player URL</label>
+                <input type='text' name='playerURL' value={formPlayerURL} onChange={e => setFormPlayerURL(e.target.value)} required />
 
                 <button type='submit'>Submit Player</button>
             </form>
             <ul className='playersbyclub-list'>
                 {playersBYclub.map(player => <li key={player.player_id}>
                     <NavLink to={`/players/${player.player_id}`}>
-                        <div>
+                        <div className='card-div'>
                             <h4>{player.player_name}</h4>
                             <p>{player.position}</p>
                         </div>
@@ -162,7 +194,49 @@ export default function Club(){
             <div className='club-transfers-div'>
                 <div>
                     <h3> transfer INs </h3>
-                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Player Name</th>
+                                <th>from Club</th>
+                                <th>fee</th>
+                                <th>date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {transferIns.map(transfer => {
+                                return <tr key={`tINs` + transfer.transfer_id}>
+                                    <td>{transfer.player_name}</td>
+                                    <td>{transfer.club_name}</td>
+                                    <td>{transfer.transfer_fee}</td>
+                                    <td>{moment(transfer.transfer_date).format("DD MMMM YYYY")}</td>
+                                </tr>
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h3> transfer OUTs </h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Player Name</th>
+                                <th>to club</th>
+                                <th>fee</th>
+                                <th>date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {transferOuts.map(transfer => {
+                                return <tr key={`tOuts` + transfer.transfer_id}>
+                                    <td>{transfer.player_name}</td>
+                                    <td>{transfer.club_name}</td>
+                                    <td>{transfer.transfer_fee}</td>
+                                    <td>{moment(transfer.transfer_date).format("DD MMMM YYYY")}</td>
+                                </tr>
+                            })}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
