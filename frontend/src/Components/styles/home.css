@@ -20,6 +20,21 @@
     color: white;
 }
 
+.info{
+    grid-column: 4 / 6;
+    grid-row: 1 / 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem;
+
+    font-family:  monospace;
+    font-size: 1.05rem;
+}
+
 .make-transfer-div{
     grid-column: 1 / 4;
     grid-row: 1 / 4;
@@ -83,7 +98,7 @@ h1, h2{
 .add-league textarea{
     padding: 0.2rem;
     width: 9rem;
-    height: 7rem;
+    height: 3rem;
     margin: 0.1rem;
     border: 1px solid white;
     border-radius: 8px;
@@ -93,7 +108,7 @@ h1, h2{
 
 .add-league{
     grid-column: 4 / 6;
-    grid-row: 1 / 4;
+    grid-row: 2 / 4;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -376,27 +391,57 @@ h1, h2{
 }
 
 .formation-player div{
-
-    padding: 0.2rem;
-
-    display: flex;
-    justify-content: space-between;
+    display: relative;
 
 }
 
 .formation-item img{
     width: 5.5rem;
     height: 5.5rem;
-    margin-right: 0.5rem;
+
 }
 
-.formation-player > *{
+
+
+.formation-player {
+    position: relative;
+    
+    width: 100%;
+    height: 100%;
+
+    padding-inline: 0.5rem;
+    padding-block: 0.3rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+  
+
+.formation-player h3 {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+  
+
+.formation-player img {
+    align-self: flex-end;
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    margin-bottom: auto; 
+}
+  
+
+.formation-player p {
     text-align: center;
-}
+    font-weight: bold;
 
-.formation-player > p{
     font-size: 0.8rem;
 }
+  
 
 .formation-selector{
     grid-column: 1 / 4;
@@ -446,10 +491,12 @@ h1, h2{
     grid-row: 3 / 4;
 }
 
-.dm{
+.cdm{
     grid-column: 7 / 9;
     grid-row: 3 / 4;
 }
+
+
 
 .cam{
     grid-column: 5 / 7;

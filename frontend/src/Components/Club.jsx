@@ -44,7 +44,6 @@ export default function Club(){
             setTransferOuts(fetchedClubInfo.transferOuts);
             setClubWages(fetchedClubInfo.clubWages);
 
-            console.log(fetchedClubInfo);
 
         }
         fetch();
@@ -260,15 +259,21 @@ async function getClubInfo(clubId){
 async function addPlayer(playerData){
     try {
         const response = await api.post("/add-player", playerData);
+        alert(response.data.message || 'Player added successfully');
     } catch (error) {
-        console.error("Error adding club:", error);
+        if(error.response?.data?.error){
+            alert(`Error: ${error.response.data.error}`);            
+        }
     } 
 }
 
 async function addFinance(financeData){
     try {
         const response = await api.post("/add-finance", financeData);
+        alert(response.data.message || 'Finance added successfully');
     } catch (error) {
-        console.error("Error adding finance:", error);
+        if(error.response?.data?.error){
+            alert(`Error: ${error.response.data.error}`);            
+        }
     }
 }

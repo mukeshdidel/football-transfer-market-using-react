@@ -3,6 +3,8 @@ import { api } from '../api/data.jsx';
 import { Link } from "react-router-dom";
 import moment from "moment";
 
+import whiteArrow from '../../assets/white-arrow-png-41955.png';
+
 
 export default function TransferNews(){
 
@@ -28,7 +30,7 @@ export default function TransferNews(){
 
                             <h2>{transfer.player_name}</h2>
 
-                            <h3><img src={transfer.from_club_url} alt={transfer.from_club_name}/> <img src="https://www.freeiconspng.com/uploads/white-arrow-image-png-14.png" alt="" />  {<img src={transfer.to_club_url} alt={transfer.to_club_name} />} </h3>
+                            <h3><img src={transfer.from_club_url} alt={transfer.from_club_name}/> <img src={whiteArrow} alt="" />  {<img src={transfer.to_club_url} alt={transfer.to_club_name} />} </h3>
                             <p>Transfer Fee: {transfer.transfer_fee}</p>
                             <p>{moment(transfer.transfer_date).format('MMMM Do YYYY')}</p>
                         </div>

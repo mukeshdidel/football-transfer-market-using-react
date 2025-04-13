@@ -7,7 +7,7 @@ export default function AddLeague(){
     const [leagueName , setLeagueName] = useState('')
     const [country, setCountry] = useState('')
     const [description, setDescription] = useState('')
-    const [leagueURL, setLeagueURL] = useState();
+    const [leagueURL, setLeagueURL] = useState('');
 
     async function handleLeagueSubmit(e){
         e.preventDefault();
@@ -35,7 +35,7 @@ export default function AddLeague(){
                 <label>Description</label>
                 <textarea id="message" name="message" rows="4" value={description} onChange={e=>setDescription(e.target.value)}></textarea>
                 <label>League Logo URL</label>
-                <input type='url' name='leagueURL' value={leagueURL} onChange={e=>setLeagueURL(e.target.value)} required />
+                <input type='text' name='leagueURL' value={leagueURL} onChange={e=>setLeagueURL(e.target.value)} required />
 
                 <button type='submit' onClick={e=>handleLeagueSubmit(e)}>Add League</button>
             </form>
@@ -43,13 +43,14 @@ export default function AddLeague(){
     );
 }
 
-async function addLeague(league){
-    try{
-        console.log()
-        const response = await api.post('/add-league', league)
-        alert('League added successfully', response.data)
-    }
-    catch(error){
-        console.error('Error adding league', error)
+async function addLeague(league) {
+    try {
+        const response = await api.post('/add-league', league);
+        alert(response.data.message || 'League added successfully');
+    } 
+    catch (error) {
+        if (error.response?.data?.error) {
+            alert(`Error: ${error.response.data.error}`);
+        }
     }
 }

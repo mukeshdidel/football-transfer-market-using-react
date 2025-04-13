@@ -2,7 +2,7 @@ import mysql from 'mysql2';
 
 const pool = mysql.createPool({ // pool is a collection of connection  in DB
     host: 'localhost',
-    user: 'root',
+    user: 'mukeshdidel',
     password: 'Mukesh@7976',
     database: 'football_market',
     multipleStatements: true
@@ -20,7 +20,16 @@ async function getLeagueInfoById(league_id){
 }
 
 async function addLeague(league_name, country, description, league_url) {
-    await pool.query(`INSERT INTO leagues (league_name, country, description, league_url) VALUES (?,?,?,?);`, [league_name, country, description, league_url]);
+    try {
+        const [row] = await pool.query(
+            `INSERT INTO leagues (league_name, country, description, league_url) VALUES (?, ?, ?, ?);`,
+            [league_name, country, description, league_url]
+        );
+        return row;
+    } catch (error) {
+        console.error('MySQL Error:', error.sqlMessage);
+        return { error: error.sqlMessage };  
+    }
 }
 
 async function getAllClubs(search_name){
@@ -29,8 +38,14 @@ async function getAllClubs(search_name){
 }
 
 async function getClub(club_id) {
-    const [rows] = await pool.query(`SELECT * FROM clubs WHERE club_id =?;`, [club_id]);
-    return rows;
+    try{
+        const [rows] = await pool.query(`SELECT * FROM clubs WHERE club_id =?;`, [club_id]);
+        return rows;
+    }
+    catch(error){
+        console.error('MySQL Error:', error.sqlMessage);
+        return { error: error.sqlMessage };  
+    }
 }
 
 async function getClubInfoById(club_id){
@@ -50,7 +65,13 @@ async function getPlayersByClub(club_id){
 
 
 async function addClub(club_name, league_id, founded_year, club_url) {
-    await pool.query(`INSERT INTO clubs (club_name, league_id, founded_year, club_url) VALUES (?,?,?,?);`, [club_name, league_id, founded_year, club_url]);
+    try{
+        await pool.query(`INSERT INTO clubs (club_name, league_id, founded_year, club_url) VALUES (?,?,?,?);`, [club_name, league_id, founded_year, club_url]);
+    }
+    catch(error){
+        console.error('MySQL Error:', error.sqlMessage);
+        return { error: error.sqlMessage };  
+    }
 }
 
 async function getClubsByLeague(league_id){
@@ -70,14 +91,25 @@ async function getPlayerInfoById(player_id){
 }
 
 async function addPlayer(player_name, nationality, date_of_birth, start_date, end_date, wages, club_id,position, player_url) {
-    const [InsertResult] = await pool.query(`INSERT INTO players (player_name, date_of_birth, club_id, nationality, position, player_url)
-                    VALUES (?,?,?,?,?,?);`,[player_name, date_of_birth, club_id, nationality, position, player_url]);
-    await pool.query(`insert into contracts (player_id, club_id, start_date, end_date, wages) values(?,?,?,?,?);`,[InsertResult.insertId, club_id, start_date, end_date, wages]);
-    return InsertResult;
+    try{
+        const [InsertResult] = await pool.query(`INSERT INTO players (player_name, date_of_birth, club_id, nationality, position, player_url)   VALUES (?,?,?,?,?,?);`,[player_name, date_of_birth, club_id, nationality, position, player_url]);
+        await pool.query(`insert into contracts (player_id, club_id, start_date, end_date, wages) values(?,?,?,?,?);`,[InsertResult.insertId, club_id, start_date, end_date, wages]);
+        return InsertResult;
+    }
+    catch(error){
+        console.error('MySQL Error:', error.sqlMessage);
+        return { error: error.sqlMessage };  
+    }
 }
 
 async function addFinance(finance_year, revenue, club_id){
-    await pool.query(`INSERT INTO finances (finance_year, revenue, club_id) VALUES (?,?,?);`, [finance_year, revenue, club_id]);
+    try{
+        await pool.query(`INSERT INTO finances (finance_year, revenue, club_id) VALUES (?,?,?);`, [finance_year, revenue, club_id]);
+    }
+    catch(error){
+        console.error('MySQL Error:', error.sqlMessage);
+        return { error: error.sqlMessage };  
+    }
 }
 
 async function transferPlayer(player_id, from_club_id, to_club_id, transfer_fee, start_date, end_date, player_wages) {
@@ -87,8 +119,10 @@ async function transferPlayer(player_id, from_club_id, to_club_id, transfer_fee,
             [player_id, from_club_id, to_club_id, transfer_fee, start_date, start_date, end_date, player_wages]
         );
         return response;
-    } catch (error) {
-        throw error;
+    }     
+    catch(error){
+        console.error('MySQL Error:', error.sqlMessage);
+        return { error: error.sqlMessage };  
     }
 }
 

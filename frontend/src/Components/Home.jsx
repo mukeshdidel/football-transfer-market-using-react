@@ -25,6 +25,10 @@ export default function Home(){
             <ClubRecords/>
             <PlayerRecords/>
             <Formation/>
+            <div className='home-grid-item info'>
+                <p>Welcome to the Global Football Transfer Market! Explore player transfers, club finances, and the latest deals across leagues.</p>
+
+            </div>
         </div>
 
         </>

@@ -37,10 +37,13 @@ app.get('/leagues/:id', async (req, res) => {
     }
 })
 
-app.post(`/add-league`,async(req, res,)=>{
-    const league = addLeague(req.body.leagueName, req.body.country, req.body.description, req.body.leagueURL);
-    res.json(league);
-})
+app.post('/add-league', async (req, res) => {
+    const response = await addLeague(req.body.leagueName, req.body.country, req.body.description, req.body.leagueURL );
+    if (response.error) {
+        return res.status(500).json({ error: response.error });
+    }
+    res.json({ message: 'League added successfully', result });
+});
 
 app.get('/clubs', async (req, res) => {
     try{
@@ -76,15 +79,12 @@ app.get('/clubs/:id', async (req, res) => {
 })
 
 app.post('/add-club', async (req, res) => {
-    try{
+    const response = await addClub(req.body.formClubName,req.body.id ,req.body.formClubFoundedYear, req.body.formClubLogo);    
+    if (response.error) {
+        return res.status(500).json({ error: response.error });
+    }
+    res.json({ message: 'Club added successfully', result });
 
-        const club = await addClub(req.body.formClubName,req.body.id ,req.body.formClubFoundedYear, req.body.formClubLogo);
-        res.json(club);
-    }
-    catch(error){
-        console.error(error);
-        res.status(500).send('Error adding club');
-    }
 })
 
 
@@ -101,15 +101,15 @@ app.get('/players', async (req, res) => {
 })
 
 app.post('/add-player',async  (req, res) => {
-    try{
-        const playerData = req.body;
-        const player = await addPlayer(playerData.formPlayerName, playerData.formPlayerNation, playerData.formPlayerDOB, playerData.formPlayerStartDate, playerData.formPlayerEndDate, playerData.formPlayerWages, playerData.id,playerData.formPlayerPosi, playerData.formPlayerURL);
-        res.json(player);
+    const playerData = req.body;
+    const response = await addPlayer(playerData.formPlayerName, playerData.formPlayerNation, playerData.formPlayerDOB, playerData.formPlayerStartDate, playerData.formPlayerEndDate, playerData.formPlayerWages, playerData.id,playerData.formPlayerPosi, playerData.formPlayerURL);
+
+    
+    if (response.error) {
+        return res.status(500).json({ error: response.error });
     }
-    catch(error){
-        console.error(error);
-        res.status(500).send('Error fetching leagues');
-    }
+    res.json({ message: 'Player added successfully', result });
+
 })
 
 app.get('/players/:id', async (req, res) => {
@@ -130,21 +130,20 @@ app.get('/players/:id', async (req, res) => {
 
 
 app.post(`/add-finance`,async (req, res) => {
-    try{
-        const finance = await addFinance(req.body.formFinanceYear, req.body.formFinanceRevenue, req.body.id);
-        res.json(finance);
+
+    const response = await addFinance(req.body.formFinanceYear, req.body.formFinanceRevenue, req.body.id);
+
+
+    if (response.error) {
+        return res.status(500).json({ error: response.error });
     }
-    catch(error){
-        console.error(error);
-        res.status(500).send('Error adding finance');
-    }
+    res.json({ message: 'Finance added successfully', result });
+
 })
 
 
 app.post(`/post-transfers`,async (req, res) => {
-    try{
         const transfers = req.body;
-
         const response = await transferPlayer(
             transfers.player_id,
             transfers.from_club_id,
@@ -154,12 +153,11 @@ app.post(`/post-transfers`,async (req, res) => {
             transfers.end_date,
             transfers.player_wages
         );
-        res.json(response);
-    }
-    catch(error){
-        console.error(error);
-        res.status(500).send('Error posting transfers');
-    }
+        if (response.error) {
+            return res.status(500).json({ error: response.error });
+        }
+        res.json({ message: 'Transfer successfully', result });
+
 })
 
 

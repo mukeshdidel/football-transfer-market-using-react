@@ -98,8 +98,12 @@ async function getLeagueInfo(leagueId){
 async function addClub(clubData){
     try {
         const response = await api.post("/add-club", clubData);
+        alert(response.data.message || 'Club added successfully');
+        
     } catch (error) {
-        console.error("Error adding club:", error);
+        if(error.response?.data?.error){
+            alert(`Error: ${error.response.data.error}`);            
+        }
     } 
 }
 

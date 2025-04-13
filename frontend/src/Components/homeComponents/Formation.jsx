@@ -161,103 +161,83 @@ export default function Formation(){
 
             <div className=' formation-item cf'>
                 <div className='formation-player' key={cf.player_id}>
-                    <div>
-                        <p>cf</p> 
-                        <img src={cf.player_url} alt={cf.player_name} />
-                    </div>
+                    <h3>cf</h3> 
+                    <img src={cf.player_url} alt={cf.player_name} />
                     <p>{cf.player_name}</p>
                 </div>
             </div>
             <div className=' formation-item lw'>
                 <div className='formation-player' key={lw.player_id}>
-                    <div>
-                        <p>lw</p> 
-                        <img src={lw.player_url} alt={lw.player_name} />
-                    </div>
+                    <h3>lw</h3> 
+                    <img src={lw.player_url} alt={lw.player_name} />
                     <p>{lw.player_name}</p>
                 </div>
             </div>
             <div className=' formation-item rw'>
                 <div className='formation-player' key={rw.player_id}>
-                    <div>
-                        <p>rw</p> 
-                        <img src={rw.player_url} alt={rw.player_name} />
-                    </div>
+                    <h3>rw</h3> 
+                    <img src={rw.player_url} alt={rw.player_name} />
                     <p>{rw.player_name}</p>
                 </div>
             </div>
             <div className=' formation-item cam'>
                 <div className='formation-player' key={cam.player_id}>
-                    <div>
-                        <p>cam</p> 
-                        <img src={cam.player_url} alt={cam.player_name} />
-                    </div>
+                    <h3>cam</h3> 
+                    <img src={cam.player_url} alt={cam.player_name} />
                     <p>{cam.player_name}</p>
                 </div>
             </div>
             <div className=' formation-item cm'>
                 <div className='formation-player' key={cm.player_id}>
-                    <div>
-                        <p>cm</p> 
-                        <img src={cm.player_url} alt={cm.player_name} />
-                    </div>
+                    <h3>cm</h3> 
+                    <img src={cm.player_url} alt={cm.player_name} />
                     <p>{cm.player_name}</p>
                 </div>
             </div>
-            <div className=' formation-item dm'>
+            <div className=' formation-item cdm'>
                 <div className='formation-player' key={dm.player_id}>
-                    <div>
-                        <p>dm</p> 
-                        <img src={dm.player_url} alt={dm.player_name} />
-                    </div>
+                    <h3>dm</h3> 
+                    <img src={dm.player_url} alt={dm.player_name} />
                     <p>{dm.player_name}</p>
                 </div>
             </div>
             <div className=' formation-item lb'>
                 <div className='formation-player' key={lb.player_id}>
-                    <div>
-                        <p>lb</p> 
-                        <img src={lb.player_url} alt={lb.player_name} />
-                    </div>
+                    <h3>lb</h3> 
+                    <img src={lb.player_url} alt={lb.player_name} />
                     <p>{lb.player_name}</p>
                 </div>
             </div>
             <div className=' formation-item cb1'>
                 <div className='formation-player' key={cb1.player_id}>
-                    <div>
-                        <p>cb</p> 
-                        <img src={cb1.player_url} alt={cb1.player_name} />
-                    </div>
+                    <h3>cb</h3> 
+                    <img src={cb1.player_url} alt={cb1.player_name} />
                     <p>{cb1.player_name}</p>
                 </div>
             </div>
             <div className=' formation-item cb2'>
                 <div className='formation-player' key={cb2.player_id}>
-                    <div>
-                        <p>cb</p> 
-                        <img src={cb2.player_url} alt={cb2.player_name} />
-                    </div>
+                    <h3>cb</h3> 
+                    <img src={cb2.player_url} alt={cb2.player_name} />
                     <p>{cb2.player_name}</p>
                 </div>
             </div>
+
             <div className=' formation-item rb'>
                 <div className='formation-player' key={rb.player_id}>
-                    <div>
-                        <p>rb</p> 
-                        <img src={rb.player_url} alt={rb.player_name} />
-                    </div>
+                    <h3>rb</h3> 
+                    <img src={rb.player_url} alt={rb.player_name} />
                     <p>{rb.player_name}</p>
                 </div>
             </div>
             <div className=' formation-item gk'>
                 <div className='formation-player' key={gk.player_id}>
-                    <div>
-                        <p>gk</p> 
-                        <img src={gk.player_url} alt={gk.player_name} />
-                    </div>
+                    <h3>gk</h3> 
+                    <img src={gk.player_url} alt={gk.player_name} />
                     <p>{gk.player_name}</p>
                 </div>
             </div>
+
         </div>
         </>
     );

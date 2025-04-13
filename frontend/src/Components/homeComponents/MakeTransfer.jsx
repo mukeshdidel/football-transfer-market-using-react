@@ -68,6 +68,12 @@ export default function MakeTransfer(){
             alert("Please select all fields.");
             return;
         }
+
+        if(FSClubID == TSClubID){
+            alert("you cannot transfer player to same club")
+            return;
+        }
+
         const player_id = TSPlayerID;
         const from_club_id = FSClubID;
         const to_club_id = TSClubID;
@@ -75,6 +81,8 @@ export default function MakeTransfer(){
         const start_date = startDate;
         const end_date = endDate;
         const player_wages = wages;
+
+
 
         const transferData = {
             player_id,
@@ -190,11 +198,12 @@ async function getTransferDivPlayers(clubId) {
 
 async function postTransferDetails(transferData){
     try {
-        console.log('transferData:', transferData);
         await api.post('/post-transfers', transferData);
-        alert('Transfer successful!');
+        alert(response.data.message || 'Transfer added successfully');
     } catch (error) {
-        console.error('Error posting transfer details', error);
+        if(error.response?.data?.error){
+            alert(`Error: ${error.response.data.error}`);            
+        }
     }
 
 }
