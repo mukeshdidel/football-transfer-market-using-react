@@ -72,14 +72,7 @@ const router = createBrowserRouter([
       </>
     ),
   },
-/*   {
-    path: 'student/:id',
-    element: 
-      <>
-        <NavBar />
-        <ParamComp />
-      </>
-  }, */
+
   {
     path: "*", 
     element: <h1>404-Page Not Found</h1>,

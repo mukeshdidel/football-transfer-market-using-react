@@ -2,7 +2,7 @@ import mysql from 'mysql2';
 
 const pool = mysql.createPool({ // pool is a collection of connection  in DB
     host: 'localhost',
-    user: 'mukeshdidel',
+    user: 'root',
     password: 'Mukesh@7976',
     database: 'football_market',
     multipleStatements: true
@@ -86,7 +86,7 @@ async function getAllPlayers(search_name){
 
 
 async function getPlayerInfoById(player_id){
-    const [rows] = await pool.query(`SELECT * FROM clubs natural join players natural join contracts WHERE player_id =? order by contract_id desc limit 1;`, [player_id]);
+    const [rows] = await pool.query(`SELECT * FROM clubs natural join players natural join contracts WHERE player_id = ? order by contract_id desc limit 1;`, [player_id]);
     return rows;
 }
 
@@ -115,8 +115,12 @@ async function addFinance(finance_year, revenue, club_id){
 async function transferPlayer(player_id, from_club_id, to_club_id, transfer_fee, start_date, end_date, player_wages) {
     try {
         const [response] = await pool.query(
-            `CALL transfer_player(?,?,?,?,?,?,?,?);`,
-            [player_id, from_club_id, to_club_id, transfer_fee, start_date, start_date, end_date, player_wages]
+                `insert into transfers ( player_id, from_club_id, to_club_id, transfer_fee, transfer_date) values(?,?,?,?,?);`,
+                [player_id, from_club_id, to_club_id, transfer_fee, start_date]
+        );
+
+        await pool.query(
+            `insert into contracts ( player_id, club_id, start_date, end_date, wages) values (?,?,?,?,?)`,[player_id, to_club_id, start_date, end_date, player_wages]
         );
         return response;
     }     
@@ -161,13 +165,15 @@ async function toalLeageWages() {
     return rows;
 }
 
+
+
 async function totalLeaguePlayers() {
     const [rows] = await pool.query(`select league_id, league_name, count(player_id) as no_of_players from leagues natural join clubs natural join players group by league_id order by no_of_players desc ;`);
     return rows;
 }
 
 async function totalClubWages() {
-    const [rows] = await pool.query(`select club_id , club_name, sum(wages) as total_wages from clubs natural join contracts group by club_id order by total_wages desc;`);
+    const [rows] = await pool.query(`select club_id , club_name, get_total_wages(club_id) as total_wages from clubs order by total_wages desc;`);
     return rows;
 }
 
@@ -218,30 +224,16 @@ async function playerAge() {
     return rows;
 }
 
-async function highestWagesFormation(){
-    const [rows] = await pool.query(`select p.player_id, p.player_url, p.player_name, p.position, c1.wages from players p natural JOIN contracts c1 
-                                    where (p.position, c1.wages) in ( select p2.position, max(c2.wages) from players p2 natural join contracts c2  where p2.position != 'cb' group by p2.position )
 
-                                    UNION
-                                    (select p.player_id, p.player_url, p.player_name, p.position, c.wages from players p natural join contracts c where p.position = 'cb' order by c.wages desc limit 2 ) order by position;`);
-    return rows;
-
-}
 
 async function youngestFormation(){
-    const [rows] = await pool.query(`select p.player_id, p.player_url, p.player_name, p.position  from players p 
-                                    where (p.position, p.date_of_birth) in ( select p2.position, max(p2.date_of_birth) from players p2 where p2.position != 'cb' group by p2.position )
-                                    union 
-                                    (select p.player_id, p.player_url, p.player_name, p.position from players p where p.position = 'cb' order by p.date_of_birth desc limit 2  );`);
-    return rows;
+    const [rows] = await pool.query(`call youngest_formation();`);
+    return rows[0];
 }
 
 async function oldestFormation(){
-    const [rows] = await pool.query(`select p.player_id, p.player_url, p.player_name, p.position  from players p 
-                                    where (p.position, p.date_of_birth) in ( select p2.position, min(p2.date_of_birth) from players p2 where p2.position != 'cb' group by p2.position )
-                                    union 
-                                    (select p.player_id, p.player_url, p.player_name, p.position from players p where p.position = 'cb' order by p.date_of_birth  limit 2  );`);
-    return rows;
+    const [rows] = await pool.query(`call oldest_formation();`);
+    return rows[0];
 }
 
-export {getAllLeagues,getLeagueInfoById,addLeague, getAllClubs,getClub, addClub, getClubsByLeague, getAllPlayers,getClubInfoById ,getTotalClubWages,  getPlayersByClub,getPlayerInfoById, addFinance,transferPlayer,addPlayer,getAllTransfers,getTransferOUTclub,getTransferINclub,getPlayerJourney,toalLeageWages,totalClubWages ,totalLeaguePlayers, totalClubProfit, totalClubLoss, totalClubNetSpent, ClubAvgAge, PlayerWages, playerCareerFee, PlayerNoOfTransfers, playerTransferFee, highestWagesFormation , youngestFormation, playerAge, oldestFormation};
+export {getAllLeagues,getLeagueInfoById,addLeague, getAllClubs,getClub, addClub, getClubsByLeague, getAllPlayers,getClubInfoById ,getTotalClubWages,  getPlayersByClub,getPlayerInfoById, addFinance,transferPlayer,addPlayer,getAllTransfers,getTransferOUTclub,getTransferINclub,getPlayerJourney,toalLeageWages,totalClubWages ,totalLeaguePlayers, totalClubProfit, totalClubLoss, totalClubNetSpent, ClubAvgAge, PlayerWages, playerCareerFee, PlayerNoOfTransfers, playerTransferFee,  youngestFormation, playerAge, oldestFormation};

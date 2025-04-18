@@ -6,7 +6,7 @@ import moment from "moment";
 
 export default function Formation(){
 
-    const [selectedFormation, setSelectedFormation] = useState('highest-wages');
+    const [selectedFormation, setSelectedFormation] = useState('youngest-players');
 
     const [cf, setCf] = useState([]);
     const [lw, setLw] = useState([]);
@@ -25,7 +25,7 @@ export default function Formation(){
 
     useEffect(() => {
         async function fetch() {
-            const query = 'highest-wages';
+            const query = 'youngest-players';
             const fetchedFormation = await getFormation(query);
 
             const temp = {
@@ -152,7 +152,6 @@ export default function Formation(){
         <div className='home-grid-item  formation-container' >
             <div className='formation-selector'>
                 <select name="formation-selector" onChange={(e) => handleChangeFormation(e)}>
-                    <option value="highest-wages">Highest Wages</option>
                     <option value="youngest-players">youngest Players</option>
                     <option value="oldest-players">Oldest Players</option>
                 </select>
@@ -237,7 +236,6 @@ export default function Formation(){
                     <p>{gk.player_name}</p>
                 </div>
             </div>
-
         </div>
         </>
     );

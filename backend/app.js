@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors'
 
-import { getAllLeagues,getLeagueInfoById,addLeague, getAllClubs, getClub, getClubInfoById, getTotalClubWages, getPlayersByClub, addClub, getClubsByLeague, getAllPlayers,getPlayerInfoById, addFinance,transferPlayer, addPlayer,getAllTransfers,getTransferOUTclub,getTransferINclub,getPlayerJourney, toalLeageWages, totalLeaguePlayers, totalClubWages, totalClubProfit, totalClubLoss,totalClubNetSpent, ClubAvgAge ,PlayerWages , playerCareerFee, PlayerNoOfTransfers, playerTransferFee, highestWagesFormation, youngestFormation, playerAge, oldestFormation} from './database.js';
+import { getAllLeagues,getLeagueInfoById,addLeague, getAllClubs, getClub, getClubInfoById, getTotalClubWages, getPlayersByClub, addClub, getClubsByLeague, getAllPlayers,getPlayerInfoById, addFinance,transferPlayer, addPlayer,getAllTransfers,getTransferOUTclub,getTransferINclub,getPlayerJourney, toalLeageWages, totalLeaguePlayers, totalClubWages, totalClubProfit, totalClubLoss,totalClubNetSpent, ClubAvgAge ,PlayerWages , playerCareerFee, PlayerNoOfTransfers, playerTransferFee,  youngestFormation, playerAge, oldestFormation} from './database.js';
 
 
 const app = express();
@@ -156,7 +156,7 @@ app.post(`/post-transfers`,async (req, res) => {
         if (response.error) {
             return res.status(500).json({ error: response.error });
         }
-        res.json({ message: 'Transfer successfully', result });
+        res.json({ message: 'Transfer successfully', response });
 
 })
 
@@ -248,10 +248,8 @@ app.post(`/formation`, async (req, res) => {
     try{
         const query = req.body;
         let formation;
-        if(query.query == 'highest-wages'){
-            formation = await highestWagesFormation(); 
-        }
-        else if(query.query == 'youngest-players'){
+
+        if(query.query == 'youngest-players'){
             formation = await youngestFormation(); 
         }
         else if(query.query == 'oldest-players'){

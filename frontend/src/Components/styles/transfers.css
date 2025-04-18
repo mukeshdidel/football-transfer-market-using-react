@@ -41,7 +41,7 @@
     margin-right: 10px;
     padding: 10px;
     border-radius: 20px;
-    background-color: darkslategray;
+    background-color: rgba(128, 128, 128, 0.24);
     
 }
 
@@ -52,7 +52,7 @@
 }
 
 .transfers-list table tr{
-    background-color: rgb(52,51,51);
+    background-color: rgba(0, 0, 255, 0.327);
 }
 
 .transfers-list a{
