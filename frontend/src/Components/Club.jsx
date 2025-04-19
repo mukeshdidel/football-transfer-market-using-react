@@ -8,6 +8,7 @@ import moment from "moment";
 export default function Club(){
     const { id } = useParams();
 
+
     const [clubInfo, setClubInfo] = useState({});
     const [clubFinance, setClubFinance] = useState([]);
     const [playersBYclub, setPlayersBYclub] = useState([]);  

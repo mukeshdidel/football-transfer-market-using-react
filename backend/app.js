@@ -60,7 +60,6 @@ app.get('/clubs', async (req, res) => {
 app.get('/clubs/:id', async (req, res) => {
     try{
         const club = await getClub(req.params.id);
-
         const clubFinance = await getClubInfoById(req.params.id);
         const clubWages = await getTotalClubWages(req.params.id);
         const players = await getPlayersByClub(req.params.id);
@@ -243,6 +242,7 @@ app.post(`/player-records`, async (req, res) => {
     }
 })
 
+getTotalClubWages
 
 app.post(`/formation`, async (req, res) => {
     try{

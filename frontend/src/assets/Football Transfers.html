@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://localhost:5173/players/103 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="module">
+import RefreshRuntime from "/@react-refresh"
+RefreshRuntime.injectIntoGlobalHook(window)
+window.$RefreshReg$ = () => {}
+window.$RefreshSig$ = () => (type) => type
+window.__vite_plugin_react_preamble_installed__ = true
+</script>
+
+    <script type="module" src="./Football Transfers_files/client"></script>
+
+    
+    <link rel="icon" type="image/svg+xml" href="http://localhost:5173/vite.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Transfers</title>
+  <style type="text/css" data-vite-dev-id="C:/Users/mukes/Desktop/football-tranfer-markert-with-react/frontend/src/index.css"></style><style type="text/css" data-vite-dev-id="C:/Users/mukes/Desktop/football-tranfer-markert-with-react/frontend/src/Components/styles/navBar.css">
+.nav-bar{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+}
+
+.nav-bar li{
+    margin: 20px;
+    list-style-type: none;
+
+
+}
+
+
+
+.nav-bar a{
+    text-decoration: none;    
+    color: grey;
+}
+
+.nav-bar a.active-link{
+    color: whitesmoke;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/mukes/Desktop/football-tranfer-markert-with-react/frontend/src/Components/styles/leagues.css">
+
+
+
+.leagues-div {
+
+    display: flex;
+    align-items: stretch; 
+    flex-direction: row;
+
+    width: 100%;
+}
+
+
+
+.leagues-list {
+
+    margin-top: 2rem;;
+    min-width: 250px;
+ 
+    height: 600px;
+    
+    display: flex;
+    flex-direction: column; 
+    flex: 1; 
+    overflow-y: auto; 
+    align-items: center;
+}
+
+.leagues-list ul{
+
+
+    display  : flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.leagues-list h2{
+    margin-bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+.leagues-list li{
+
+
+    min-width: 200px;
+    height: 75px;
+    margin: 5px;
+}
+
+
+
+.leagues-div ul li{
+
+    list-style-type: none;;
+    text-align: center;
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.league-info{
+    width: 75%;
+    height: 100%;
+
+    padding: 2rem;
+
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(5,110px);
+    grid-gap: 1rem;
+}
+
+.league-description{
+
+    padding: 1rem;
+
+    border: 1px solid whitesmoke;
+    border-radius: 20px;;
+    background-color: rgba(0, 0, 255, 0.379);
+
+    grid-column: 1/ 9;
+    grid-row: 1 / 3;
+
+    text-align: center;
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+
+    overflow-y: auto; 
+}
+
+
+
+.league-info form{
+    padding: 1rem;
+
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 255, 0.379);
+
+    grid-column: 1 / 2;
+    grid-row: 3 / 6;
+    
+    text-align: center;
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.league-info form input{
+
+    padding: 0.2rem;
+    width: 9rem;
+    height: 1.5rem;
+    margin: 0.2rem 0.6rem;
+    border: 1px solid white;
+    border-radius: 8px;
+
+}
+
+.league-info form button{
+    width: 9rem;
+    height: 1.5rem;
+    margin: 1rem;
+    background-color: darkslategrey;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+
+}
+.league-info form button:hover{
+    background-color: rgb(30, 46, 46);
+}
+
+.clubsbyleague-list{
+    padding: 1rem;
+
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 255, 0.379);
+
+    grid-column: 2 / 9;
+    grid-row: 3 / 6;
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: start;
+    align-content: start;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+
+</style><style type="text/css" data-vite-dev-id="C:/Users/mukes/Desktop/football-tranfer-markert-with-react/frontend/src/Components/styles/clubs.css">
+
+
+
+.clubs-div {
+
+    display: flex;
+    align-items: stretch; 
+    flex-direction: row;
+
+    width: 100%;
+}
+
+.clubs-list {
+    margin-top: 2rem;;
+    min-width: 250px;
+ 
+    height: 1235px;
+
+
+    display: flex;
+    flex-direction: column; 
+    flex: 1; 
+    overflow-y: auto; 
+    align-items: center;
+
+    margin-bottom: 2rem;;
+}
+
+
+.clubs-list ul{
+
+
+    display  : flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.clubs-list h2{
+    margin-bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+.clubs-list li{
+
+    min-width: 200px;
+    height: 75px;
+    margin: 5px;
+}
+
+
+
+.clubs-div ul li{
+
+    list-style-type: none;;
+    text-align: center;
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.club-info{
+    width: 75%;
+    height: 150%;
+
+    padding: 2rem;
+
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(9,125px);
+    grid-gap: 1rem;
+}
+
+.club-description{
+
+    padding: 1rem;
+
+    border: 1px solid whitesmoke;
+    border-radius: 20px;;
+    background-color: rgba(0, 0, 255, 0.379);
+
+    grid-column: 1/ 9;
+    grid-row: 1 / 3;
+
+    text-align: center;
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+
+
+}
+
+.club-description img{
+    width: 9rem;
+    height: 9rem;
+}
+
+.club-finance{
+    padding: 1rem;
+
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 255, 0.379);
+
+    grid-column: 3 / 9;
+    grid-row: 3 / 5;
+
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+
+.club-fincace h3, h4 {
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0.5rem;
+}
+
+.club-finance input{
+    padding: 0.2rem;
+    width: 9rem;
+    height: 1.5rem;
+    margin: 0.2rem 0.6rem;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+
+.club-finance button{
+    width: 2rem;
+    height: 2rem;
+    margin: 1rem;
+    background-color: darkslategrey;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+
+.club-finance button:hover{
+    background-color: rgb(30, 46, 46);
+    cursor: pointer;
+}
+
+.finance-table td , th{
+    padding: 0.5rem;;
+    border: 1px solid whitesmoke;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 255, 0.379);
+}
+
+.player-form{
+    padding: 0.5rem;
+    
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 255, 0.379);
+
+    grid-column: 1 / 3;
+    grid-row: 3 / 7; 
+
+    text-align: center;
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.player-form input{
+    padding: 0.2rem;
+    width: 9rem;
+    height: 1.5rem;
+    margin: 0.2rem 0.2rem;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+
+.player-form button{
+    width: 9rem;
+    height: 1.5rem;
+    margin: 0.5rem;
+    background-color: darkslategrey;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+.player-form button:hover{
+    background-color: rgb(30, 46, 46);
+    cursor: pointer;
+}
+
+.playersbyclub-list{
+    padding: 1rem;
+    
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 255, 0.379);
+
+    grid-column: 3 / 9;
+    grid-row:  5/ 7; 
+
+    text-align: center;
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: start;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+
+.club-transfers-div{
+    padding: 1rem;
+    
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 255, 0.379);
+
+    grid-column: 1 / 9;
+    grid-row: 7 / 10; 
+
+    text-align: center;
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+.club-transfers-div td , th{
+    padding: 0.5rem;;
+    border: 1px solid whitesmoke;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 255, 0.379); 
+
+    width: 9rem;
+}
+
+.club-transfers-div th {
+    background-color: darkslategrey;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/mukes/Desktop/football-tranfer-markert-with-react/frontend/src/Components/styles/players.css">
+
+
+
+.players-div {
+
+    display: flex;
+    align-items: stretch; 
+    flex-direction: row;
+
+    width: 100%;
+
+}
+
+.players-list {
+
+    margin-top: 2rem;;
+    min-width: 250px;
+ 
+    height: 600px;
+    
+    display: flex;
+    flex-direction: column; 
+    flex: 1; 
+    overflow-y: auto; 
+    align-items: center;
+}
+
+
+
+.players-list ul{
+
+    display  : flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+
+.players-list h2{
+    margin-bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+.players-list li{
+
+
+    min-width: 200px;
+    height: 75px;
+    margin: 5px;
+}
+
+.players-div ul li{
+
+    list-style-type: none;;
+    text-align: center;
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.player-info{
+    width: 75%;
+    height: 100%;
+
+    padding: 2rem;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5,110px);
+    grid-gap: 1rem;
+}
+
+
+.player-description{
+    padding: 1rem;
+
+    border: 1px solid whitesmoke;
+    border-radius: 20px;;
+    background-color: rgba(0, 0, 255, 0.379);
+
+    background-repeat: no-repeat;
+    background-position:  right center;
+    background-size: contain;
+
+    grid-column: 1/ 3;
+    grid-row: 1 / 3;
+
+    text-align: left;
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+.player-contract{
+    padding: 1rem;
+
+    border: 1px solid whitesmoke;
+    border-radius: 20px;;
+    background-color: rgba(0, 0, 255, 0.379);
+
+    grid-column: 3/ 5;
+    grid-row: 1 / 3;
+
+    text-align: center;
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+ 
+}
+
+
+.player-description h2{
+    font-family: 'Courier New', Courier, monospace;
+    margin: 10px;
+}
+
+.player-description p{
+    font-family: 'Courier New', Courier, monospace;
+    margin: 10px;
+    color: lightblue
+}
+
+
+
+
+.player-transfers-div{
+
+    padding: 1rem;
+
+    border: 1px solid whitesmoke;
+    border-radius: 20px;;
+    background-color: rgba(0, 0, 255, 0.379);
+
+    grid-column: 1/ 5;
+    grid-row: 3 / 6;
+
+    text-align: center;
+    color: whitesmoke;
+    font-family: 'Courier New', Courier, monospace;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+} 
+
+.player-transfers-div div{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid whitesmoke;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 255, 0.662);
+    color: whitesmoke;
+    text-align: center;
+    cursor: pointer;
+}
+
+.player-transfers-div td {
+    padding: 10px;
+    border: none;
+    width: 12.3rem;
+
+}
+
+.player-transfers-div td:nth-child(1) {
+    width: 30rem;
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/mukes/Desktop/football-tranfer-markert-with-react/frontend/src/Components/styles/transfers.css">
+
+
+
+.transfers-div {
+
+    display: flex;
+    align-items: stretch; 
+    flex-direction: row;
+
+    width: 100%;
+    height: 100%
+
+}
+
+
+
+
+
+.transfers-list {
+    min-width: 250px;
+    height: 100%; 
+
+    
+    display: flex;
+    flex-direction: column; 
+    flex: 1; 
+    overflow-y: auto; 
+    align-items: center;
+}
+
+.transfers-list h2{
+    margin-bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+.transfers-list table{  
+    color: whitesmoke;
+    border: 1px solid whitesmoke;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgba(128, 128, 128, 0.24);
+    
+}
+
+.transfers-list table th, td{
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.transfers-list table tr{
+    background-color: rgba(0, 0, 255, 0.327);
+}
+
+.transfers-list a{
+    color: white;
+    text-decoration: none;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/mukes/Desktop/football-tranfer-markert-with-react/frontend/src/Components/styles/home.css">.home-div{
+
+
+    width: 100%; 
+    box-sizing: border-box;
+
+    padding: 2rem;
+
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(10, 150px);
+    gap: 1rem;
+}
+
+.home-grid-item{
+    border: 1px solid white;
+    border-radius: 15px;
+
+    background-color: rgba(0, 0, 255, 0.327);
+    color: white;
+}
+
+.info{
+    grid-column: 4 / 6;
+    grid-row: 1 / 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem;
+
+    font-family:  monospace;
+    font-size: 1.05rem;
+}
+
+.make-transfer-div{
+    grid-column: 1 / 4;
+    grid-row: 1 / 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem;
+}
+
+h1, h2{
+    font-family: 'Courier New', Courier, monospace;
+    margin: 1rem;
+}
+
+
+
+.make-transfer-div h1{
+    border-bottom: 1px solid white;
+}
+
+.make-transfer-div select{
+    width: 9rem;
+    height: 1.5rem;
+    margin: 0.1rem;
+    background-color: darkslategrey;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+.make-transfer-div select:focus{
+    outline: none;
+}
+
+
+.home-grid-item input{
+
+    padding: 0.2rem;
+    width: 9rem;
+    height: 1.5rem;
+    margin: 0.2rem 0.6rem;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+
+.home-grid-item button{
+    width: 9rem;
+    height: 1.5rem;
+    margin: 1rem;
+    background-color: darkslategrey;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+
+}
+.home-grid-item button:hover{
+    background-color: rgb(30, 46, 46);
+}
+
+.add-league textarea{
+    padding: 0.2rem;
+    width: 9rem;
+    height: 3rem;
+    margin: 0.1rem;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+
+
+
+.add-league{
+    grid-column: 4 / 6;
+    grid-row: 2 / 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.transfer-wrapper{
+    grid-column: 6 / 9;
+    grid-row: 1 / 3;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.slider{
+    display: flex;
+    height: 100%;
+
+
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+
+    animation: slide 15s infinite;
+}
+
+.slider::-webkit-scrollbar {
+    display: none; 
+}
+
+
+.slider div{
+    flex: 1 0 100%;  /*  flex-grow flex-shrink flex-spaces */
+    scroll-snap-align: start;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+@keyframes slide {
+    0%   { transform: translateX(0%); }
+    15%  { transform: translateX(0%); }
+
+    20%  { transform: translateX(-100%); }
+    35%  { transform: translateX(-100%); }
+
+    40%  { transform: translateX(-200%); }
+    55%  { transform: translateX(-200%); }
+
+    60%  { transform: translateX(-300%); }
+    75%  { transform: translateX(-300%); }
+
+    80%  { transform: translateX(-400%); }
+    95%  { transform: translateX(-400%); }
+
+    100% { transform: translateX(0%); } 
+}
+
+
+.slider img{
+    width: 4.5rem;
+    height: 4.5rem;
+}
+
+
+
+
+.transfer-news-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+
+    padding: 1rem;
+    color: white;
+
+    padding-left: 10%;
+
+
+    background-repeat: no-repeat;
+    background-position:  right center;
+    background-size: contain;
+}
+
+.transfer-news-item p{
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0.5rem;
+}
+
+.league-records-container {
+    grid-column: 1 / 3;
+    grid-row: 4 / 7;
+
+    padding: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: white;
+}
+
+.league-records-container h1 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.league-records-container select {
+    width: 15rem;
+    height: 1.5rem;
+    margin: 0.2rem 0.6rem;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+
+.league-records {
+    flex-grow: 1;
+    width: 100%;
+  
+    overflow-y: auto;
+    overflow-x: hidden;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  
+    padding: 1rem;
+    background-color: rgba(128, 128, 128, 0.24);
+    border: 1px solid white;
+    border-radius: 15px;
+}
+
+
+
+
+.club-records-container {
+    grid-column: 3 / 6;
+    grid-row: 4 / 7;
+
+    padding: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: white;
+}
+
+.club-records-container h1 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.club-records-container select {
+    width: 15rem;
+    height: 1.5rem;
+    margin: 0.2rem 0.6rem;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+
+.club-records {
+    flex-grow: 1;
+    width: 100%;
+  
+    overflow-y: auto;
+    overflow-x: hidden;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  
+    padding: 1rem;
+    background-color: rgba(128, 128, 128, 0.24);
+    border: 1px solid white;
+    border-radius: 15px;
+}
+
+
+
+
+.player-records-container {
+    grid-column: 6 / 9;
+    grid-row: 3 / 7;
+
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: white;
+    height: 100%; 
+    overflow: hidden; 
+}
+
+.player-records-container h1 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.player-records-container select {
+    width: 15rem;
+    height: 1.5rem;
+    margin: 0.2rem 0.6rem;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+
+.player-records {
+    flex-grow: 1;
+    width: 100%;
+  
+    overflow-y: auto;
+    overflow-x: hidden;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  
+    padding: 1rem;
+    background-color: rgba(128, 128, 128, 0.24);
+    border: 1px solid white;
+    border-radius: 15px;
+  }
+  
+.records{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.formation-container{
+    grid-column: 1 / 6;
+    grid-row: 7 / 11;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(5, 110px);
+    grid-gap: 1rem;
+
+    padding: 1rem;
+
+}
+
+.formation-item{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 255, 0.327);
+    border-radius: 15px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.formation-player div{
+    display: relative;
+
+}
+
+.formation-item img{
+    width: 5.5rem;
+    height: 5.5rem;
+
+}
+
+
+
+.formation-player {
+    position: relative;
+    
+    width: 100%;
+    height: 100%;
+
+    padding-inline: 0.5rem;
+    padding-block: 0.3rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+  
+
+.formation-player h3 {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+  
+
+.formation-player img {
+    align-self: flex-end;
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    margin-bottom: auto; 
+}
+  
+
+.formation-player p {
+    text-align: center;
+    font-weight: bold;
+
+    font-size: 0.8rem;
+}
+  
+
+.formation-selector{
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+}
+
+.formation-selector select{
+    width: 100%;
+    height: 1.5rem;
+    margin: 0.1rem;
+    color: black;
+    border-radius: 8px;
+}
+
+.cf{
+    grid-column: 5 / 7;
+    grid-row: 1 / 2;
+}
+
+.gk{
+    grid-column: 5 / 7;
+    grid-row: 5 / 6;
+}
+
+.lb{
+    grid-column: 1 / 3;
+    grid-row: 4 / 5;
+}
+
+.cb1{
+    grid-column: 4 / 6;
+    grid-row: 4 / 5;
+}
+
+.cb2{
+    grid-column: 6 / 8;
+    grid-row: 4 / 5;
+}
+
+.rb{
+    grid-column: 9 / 11;
+    grid-row: 4 / 5;
+}
+
+.cm{
+    grid-column: 3 / 5;
+    grid-row: 3 / 4;
+}
+
+.cdm{
+    grid-column: 7 / 9;
+    grid-row: 3 / 4;
+}
+
+
+
+.cam{
+    grid-column: 5 / 7;
+    grid-row: 2 / 3;
+}
+
+.rw{
+    grid-column: 9 / 11;
+    grid-row: 2 / 3;
+}
+
+.lw{
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+}</style><style type="text/css" data-vite-dev-id="C:/Users/mukes/Desktop/football-tranfer-markert-with-react/frontend/src/App.css">
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    width: 100%;
+
+
+
+    background-image: url(/src/assets/background.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;    
+}
+
+body > div{
+    width: 100%;
+    height: 100%;
+
+}
+
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+
+::-webkit-scrollbar {
+    width : 15px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: blue;
+    border-radius: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 10px;
+    border: 3px solid blue; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: darkgray;
+}
+
+
+.card-div{
+    border: 1px solid whitesmoke;
+    width: 20rem;
+    height: 75px;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 255, 0.625);
+    margin: 0.2rem;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+
+.card-div img{
+    width: 3.5rem;
+    height: 3.5rem;
+
+
+}
+
+.card-div h2{
+    margin-bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+
+.card-div p{
+    color : rgb(163, 156, 156);
+}
+
+.card-div:hover{
+    background-color: darkslategrey;
+}
+
+.card-div *  {
+    margin: 0px;
+
+}
+
+
+.search-bar {
+    background-color: white;
+    width:75%;
+    height: 2.5rem;
+    border-radius: 10px;
+    padding: 0 15px;
+    margin: 10px;
+    
+}
+
+.search-bar input {
+    background-color: transparent;
+    border: none;
+    height: 2.5rem;
+    width: 100%;
+}
+
+.search-bar input:focus{
+    outline: none;
+}
+</style></head>
+  <body>
+    <div id="root"><ul class="nav-bar"><li><a class="" href="http://localhost:5173/" data-discover="true">Home</a></li><li><a class="" href="http://localhost:5173/leagues" data-discover="true">Leagues</a></li><li><a class="" href="http://localhost:5173/clubs" data-discover="true">Clubs</a></li><li><a class="active-link" href="http://localhost:5173/players" data-discover="true" aria-current="page">Players</a></li><li><a class="" href="http://localhost:5173/transfers" data-discover="true">transfers</a></li></ul><div class="players-div"><div class="players-list"><h2>Players</h2><div class="search-bar"><input placeholder="search" type="text" value=""></div><ul><li><a class="" href="http://localhost:5173/players/1" data-discover="true"><div class="card-div"><h4>André Onana</h4><p>Manchester United</p></div></a></li><li><a class="" href="http://localhost:5173/players/2" data-discover="true"><div class="card-div"><h4>Diogo Dalot</h4><p>Manchester United</p></div></a></li><li><a class="" href="http://localhost:5173/players/3" data-discover="true"><div class="card-div"><h4>Luke Shaw</h4><p>Manchester United</p></div></a></li><li><a class="" href="http://localhost:5173/players/4" data-discover="true"><div class="card-div"><h4>Harry Maguire</h4><p>Manchester United</p></div></a></li><li><a class="" href="http://localhost:5173/players/5" data-discover="true"><div class="card-div"><h4>Lisandro Martínez</h4><p>Manchester United</p></div></a></li><li><a class="" href="http://localhost:5173/players/6" data-discover="true"><div class="card-div"><h4>Casemiro</h4><p>Manchester United</p></div></a></li><li><a class="" href="http://localhost:5173/players/7" data-discover="true"><div class="card-div"><h4>Mason Mount</h4><p>Manchester United</p></div></a></li><li><a class="" href="http://localhost:5173/players/9" data-discover="true"><div class="card-div"><h4>Marcus Rashford</h4><p>Manchester United</p></div></a></li><li><a class="" href="http://localhost:5173/players/10" data-discover="true"><div class="card-div"><h4>Antony</h4><p>Manchester United</p></div></a></li><li><a class="" href="http://localhost:5173/players/11" data-discover="true"><div class="card-div"><h4>Rasmus Højlund</h4><p>Manchester United</p></div></a></li><li><a class="" href="http://localhost:5173/players/15" data-discover="true"><div class="card-div"><h4>Virgil van Dijk</h4><p>Manchester United</p></div></a></li><li><a class="" href="http://localhost:5173/players/12" data-discover="true"><div class="card-div"><h4>Alisson Becker</h4><p>Liverpool</p></div></a></li><li><a class="" href="http://localhost:5173/players/13" data-discover="true"><div class="card-div"><h4>Trent Alexander-Arnold</h4><p>Liverpool</p></div></a></li><li><a class="" href="http://localhost:5173/players/14" data-discover="true"><div class="card-div"><h4>Andrew Robertson</h4><p>Liverpool</p></div></a></li><li><a class="" href="http://localhost:5173/players/16" data-discover="true"><div class="card-div"><h4>Ibrahima Konaté</h4><p>Liverpool</p></div></a></li><li><a class="" href="http://localhost:5173/players/17" data-discover="true"><div class="card-div"><h4>Wataru Endō</h4><p>Liverpool</p></div></a></li><li><a class="" href="http://localhost:5173/players/18" data-discover="true"><div class="card-div"><h4>Alexis Mac Allister</h4><p>Liverpool</p></div></a></li><li><a class="" href="http://localhost:5173/players/19" data-discover="true"><div class="card-div"><h4>Dominik Szoboszlai</h4><p>Liverpool</p></div></a></li><li><a class="" href="http://localhost:5173/players/20" data-discover="true"><div class="card-div"><h4>Luis Díaz</h4><p>Liverpool</p></div></a></li><li><a class="" href="http://localhost:5173/players/21" data-discover="true"><div class="card-div"><h4>Mohamed Salah</h4><p>Liverpool</p></div></a></li><li><a class="" href="http://localhost:5173/players/22" data-discover="true"><div class="card-div"><h4>Darwin Núñez</h4><p>Liverpool</p></div></a></li><li><a class="" href="http://localhost:5173/players/23" data-discover="true"><div class="card-div"><h4>David Raya</h4><p>Arsenal</p></div></a></li><li><a class="" href="http://localhost:5173/players/24" data-discover="true"><div class="card-div"><h4>Ben White</h4><p>Arsenal</p></div></a></li><li><a class="" href="http://localhost:5173/players/25" data-discover="true"><div class="card-div"><h4>Oleksandr Zinchenko</h4><p>Arsenal</p></div></a></li><li><a class="" href="http://localhost:5173/players/26" data-discover="true"><div class="card-div"><h4>William Saliba</h4><p>Arsenal</p></div></a></li><li><a class="" href="http://localhost:5173/players/27" data-discover="true"><div class="card-div"><h4>Gabriel Magalhães</h4><p>Arsenal</p></div></a></li><li><a class="" href="http://localhost:5173/players/29" data-discover="true"><div class="card-div"><h4>Martin Ødegaard</h4><p>Arsenal</p></div></a></li><li><a class="" href="http://localhost:5173/players/30" data-discover="true"><div class="card-div"><h4>Kai Havertz</h4><p>Arsenal</p></div></a></li><li><a class="" href="http://localhost:5173/players/31" data-discover="true"><div class="card-div"><h4>Gabriel Martinelli</h4><p>Arsenal</p></div></a></li><li><a class="" href="http://localhost:5173/players/32" data-discover="true"><div class="card-div"><h4>Bukayo Saka</h4><p>Arsenal</p></div></a></li><li><a class="" href="http://localhost:5173/players/33" data-discover="true"><div class="card-div"><h4>Gabriel Jesus</h4><p>Arsenal</p></div></a></li><li><a class="" href="http://localhost:5173/players/34" data-discover="true"><div class="card-div"><h4>Robert Sánchez</h4><p>Chelsea</p></div></a></li><li><a class="" href="http://localhost:5173/players/35" data-discover="true"><div class="card-div"><h4>Reece James</h4><p>Chelsea</p></div></a></li><li><a class="" href="http://localhost:5173/players/36" data-discover="true"><div class="card-div"><h4>Marc Cucurella</h4><p>Chelsea</p></div></a></li><li><a class="" href="http://localhost:5173/players/37" data-discover="true"><div class="card-div"><h4>Wesley Fofana</h4><p>Chelsea</p></div></a></li><li><a class="" href="http://localhost:5173/players/38" data-discover="true"><div class="card-div"><h4>Levi Colwill</h4><p>Chelsea</p></div></a></li><li><a class="" href="http://localhost:5173/players/39" data-discover="true"><div class="card-div"><h4>Moisés Caicedo</h4><p>Chelsea</p></div></a></li><li><a class="" href="http://localhost:5173/players/40" data-discover="true"><div class="card-div"><h4>Enzo Fernández</h4><p>Chelsea</p></div></a></li><li><a class="" href="http://localhost:5173/players/41" data-discover="true"><div class="card-div"><h4>Cole Palmer</h4><p>Chelsea</p></div></a></li><li><a class="" href="http://localhost:5173/players/43" data-discover="true"><div class="card-div"><h4>Noni Madueke</h4><p>Chelsea</p></div></a></li><li><a class="" href="http://localhost:5173/players/44" data-discover="true"><div class="card-div"><h4>Nicolas Jackson</h4><p>Chelsea</p></div></a></li><li><a class="" href="http://localhost:5173/players/75" data-discover="true"><div class="card-div"><h4>Lamine Yamal</h4><p>Chelsea</p></div></a></li><li><a class="" href="http://localhost:5173/players/45" data-discover="true"><div class="card-div"><h4>Ederson</h4><p>Manchester City</p></div></a></li><li><a class="" href="http://localhost:5173/players/46" data-discover="true"><div class="card-div"><h4>Kyle Walker</h4><p>Manchester City</p></div></a></li><li><a class="" href="http://localhost:5173/players/47" data-discover="true"><div class="card-div"><h4>Joško Gvardiol</h4><p>Manchester City</p></div></a></li><li><a class="" href="http://localhost:5173/players/48" data-discover="true"><div class="card-div"><h4>Rúben Dias</h4><p>Manchester City</p></div></a></li><li><a class="" href="http://localhost:5173/players/49" data-discover="true"><div class="card-div"><h4>John Stones</h4><p>Manchester City</p></div></a></li><li><a class="" href="http://localhost:5173/players/50" data-discover="true"><div class="card-div"><h4>Rodri</h4><p>Manchester City</p></div></a></li><li><a class="" href="http://localhost:5173/players/51" data-discover="true"><div class="card-div"><h4>Kevin De Bruyne</h4><p>Manchester City</p></div></a></li><li><a class="" href="http://localhost:5173/players/52" data-discover="true"><div class="card-div"><h4>Bernardo Silva</h4><p>Manchester City</p></div></a></li><li><a class="" href="http://localhost:5173/players/53" data-discover="true"><div class="card-div"><h4>Jack Grealish</h4><p>Manchester City</p></div></a></li><li><a class="" href="http://localhost:5173/players/54" data-discover="true"><div class="card-div"><h4>Jérémy Doku</h4><p>Manchester City</p></div></a></li><li><a class="" href="http://localhost:5173/players/55" data-discover="true"><div class="card-div"><h4>Erling Haaland</h4><p>Manchester City</p></div></a></li><li><a class="" href="http://localhost:5173/players/63" data-discover="true"><div class="card-div"><h4>Jude Bellingham</h4><p>Manchester City</p></div></a></li><li><a class="" href="http://localhost:5173/players/56" data-discover="true"><div class="card-div"><h4>Thibaut Courtois</h4><p>Real Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/57" data-discover="true"><div class="card-div"><h4>Dani Carvajal</h4><p>Real Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/58" data-discover="true"><div class="card-div"><h4>Ferland Mendy</h4><p>Real Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/59" data-discover="true"><div class="card-div"><h4>Éder Militão</h4><p>Real Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/60" data-discover="true"><div class="card-div"><h4>Antonio Rüdiger</h4><p>Real Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/61" data-discover="true"><div class="card-div"><h4>Aurélien Tchouaméni</h4><p>Real Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/62" data-discover="true"><div class="card-div"><h4>Luka Modrić</h4><p>Real Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/64" data-discover="true"><div class="card-div"><h4>Vinícius Júnior</h4><p>Real Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/65" data-discover="true"><div class="card-div"><h4>Rodrygo</h4><p>Real Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/124" data-discover="true"><div class="card-div"><h4>Alphonso Davies</h4><p>Real Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/67" data-discover="true"><div class="card-div"><h4>Marc-André ter Stegen</h4><p>Barcelona</p></div></a></li><li><a class="" href="http://localhost:5173/players/68" data-discover="true"><div class="card-div"><h4>Jules Koundé</h4><p>Barcelona</p></div></a></li><li><a class="" href="http://localhost:5173/players/69" data-discover="true"><div class="card-div"><h4>Alejandro Balde</h4><p>Barcelona</p></div></a></li><li><a class="" href="http://localhost:5173/players/70" data-discover="true"><div class="card-div"><h4>Ronald Araújo</h4><p>Barcelona</p></div></a></li><li><a class="" href="http://localhost:5173/players/71" data-discover="true"><div class="card-div"><h4>Pau Cubarsí</h4><p>Barcelona</p></div></a></li><li><a class="" href="http://localhost:5173/players/72" data-discover="true"><div class="card-div"><h4>Frenkie de Jong</h4><p>Barcelona</p></div></a></li><li><a class="" href="http://localhost:5173/players/74" data-discover="true"><div class="card-div"><h4>Gavi</h4><p>Barcelona</p></div></a></li><li><a class="" href="http://localhost:5173/players/76" data-discover="true"><div class="card-div"><h4>Raphinha</h4><p>Barcelona</p></div></a></li><li><a class="" href="http://localhost:5173/players/77" data-discover="true"><div class="card-div"><h4>Robert Lewandowski</h4><p>Barcelona</p></div></a></li><li><a class="" href="http://localhost:5173/players/28" data-discover="true"><div class="card-div"><h4>Declan Rice</h4><p>Atlético Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/42" data-discover="true"><div class="card-div"><h4>Jadon Sancho</h4><p>Atlético Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/78" data-discover="true"><div class="card-div"><h4>Jan Oblak</h4><p>Atlético Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/79" data-discover="true"><div class="card-div"><h4>Nahuel Molina</h4><p>Atlético Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/80" data-discover="true"><div class="card-div"><h4>Javi Galán</h4><p>Atlético Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/81" data-discover="true"><div class="card-div"><h4>José María Giménez</h4><p>Atlético Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/82" data-discover="true"><div class="card-div"><h4>Robin Le Normand</h4><p>Atlético Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/83" data-discover="true"><div class="card-div"><h4>Koke</h4><p>Atlético Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/84" data-discover="true"><div class="card-div"><h4>Rodrigo De Paul</h4><p>Atlético Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/85" data-discover="true"><div class="card-div"><h4>Conor Gallagher</h4><p>Atlético Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/86" data-discover="true"><div class="card-div"><h4>Antoine Griezmann</h4><p>Atlético Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/87" data-discover="true"><div class="card-div"><h4>Giuliano Simeone</h4><p>Atlético Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/88" data-discover="true"><div class="card-div"><h4>Julián Álvarez</h4><p>Atlético Madrid</p></div></a></li><li><a class="" href="http://localhost:5173/players/89" data-discover="true"><div class="card-div"><h4>Mike Maignan</h4><p>AC Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/90" data-discover="true"><div class="card-div"><h4>Alessandro Florenzi</h4><p>AC Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/91" data-discover="true"><div class="card-div"><h4>Theo Hernández</h4><p>AC Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/92" data-discover="true"><div class="card-div"><h4>Fikayo Tomori</h4><p>AC Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/93" data-discover="true"><div class="card-div"><h4>Malick Thiaw</h4><p>AC Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/94" data-discover="true"><div class="card-div"><h4>Yunus Musah</h4><p>AC Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/95" data-discover="true"><div class="card-div"><h4>Tijjani Reijnders</h4><p>AC Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/96" data-discover="true"><div class="card-div"><h4>Ruben Loftus-Cheek</h4><p>AC Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/97" data-discover="true"><div class="card-div"><h4>Christian Pulisic</h4><p>AC Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/98" data-discover="true"><div class="card-div"><h4>Rafael Leão</h4><p>AC Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/99" data-discover="true"><div class="card-div"><h4>Tammy Abraham</h4><p>AC Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/104" data-discover="true"><div class="card-div"><h4>Benjamin Pavard</h4><p>AC Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/100" data-discover="true"><div class="card-div"><h4>Yann Sommer</h4><p>Inter Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/101" data-discover="true"><div class="card-div"><h4>Denzel Dumfries</h4><p>Inter Milan</p></div></a></li><li><a aria-current="page" class="active" href="http://localhost:5173/players/103" data-discover="true"><div class="card-div"><h4>Alessandro Bastoni</h4><p>Inter Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/105" data-discover="true"><div class="card-div"><h4>Hakan Çalhanoğlu</h4><p>Inter Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/106" data-discover="true"><div class="card-div"><h4>Nicolò Barella</h4><p>Inter Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/107" data-discover="true"><div class="card-div"><h4>Henrikh Mkhitaryan</h4><p>Inter Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/108" data-discover="true"><div class="card-div"><h4>Marcus Thuram</h4><p>Inter Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/109" data-discover="true"><div class="card-div"><h4>Lautaro Martínez</h4><p>Inter Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/110" data-discover="true"><div class="card-div"><h4>Mehdi Taremi</h4><p>Inter Milan</p></div></a></li><li><a class="" href="http://localhost:5173/players/73" data-discover="true"><div class="card-div"><h4>Pedri</h4><p>Juventus</p></div></a></li><li><a class="" href="http://localhost:5173/players/102" data-discover="true"><div class="card-div"><h4>Federico Dimarco</h4><p>Juventus</p></div></a></li><li><a class="" href="http://localhost:5173/players/111" data-discover="true"><div class="card-div"><h4>Mattia Perin</h4><p>Juventus</p></div></a></li><li><a class="" href="http://localhost:5173/players/112" data-discover="true"><div class="card-div"><h4>Juan Cabal</h4><p>Juventus</p></div></a></li><li><a class="" href="http://localhost:5173/players/113" data-discover="true"><div class="card-div"><h4>Andrea Cambiaso</h4><p>Juventus</p></div></a></li><li><a class="" href="http://localhost:5173/players/114" data-discover="true"><div class="card-div"><h4>Bremer</h4><p>Juventus</p></div></a></li><li><a class="" href="http://localhost:5173/players/115" data-discover="true"><div class="card-div"><h4>Federico Gatti</h4><p>Juventus</p></div></a></li><li><a class="" href="http://localhost:5173/players/116" data-discover="true"><div class="card-div"><h4>Manuel Locatelli</h4><p>Juventus</p></div></a></li><li><a class="" href="http://localhost:5173/players/117" data-discover="true"><div class="card-div"><h4>Weston McKennie</h4><p>Juventus</p></div></a></li><li><a class="" href="http://localhost:5173/players/118" data-discover="true"><div class="card-div"><h4>Teun Koopmeiners</h4><p>Juventus</p></div></a></li><li><a class="" href="http://localhost:5173/players/119" data-discover="true"><div class="card-div"><h4>Timothy Weah</h4><p>Juventus</p></div></a></li><li><a class="" href="http://localhost:5173/players/120" data-discover="true"><div class="card-div"><h4>Nicolás González</h4><p>Juventus</p></div></a></li><li><a class="" href="http://localhost:5173/players/121" data-discover="true"><div class="card-div"><h4>Dušan Vlahović</h4><p>Juventus</p></div></a></li><li><a class="" href="http://localhost:5173/players/8" data-discover="true"><div class="card-div"><h4>Bruno Fernandes</h4><p>Bayern Munich</p></div></a></li><li><a class="" href="http://localhost:5173/players/122" data-discover="true"><div class="card-div"><h4>Manuel Neuer</h4><p>Bayern Munich</p></div></a></li><li><a class="" href="http://localhost:5173/players/123" data-discover="true"><div class="card-div"><h4>Joshua Kimmich</h4><p>Bayern Munich</p></div></a></li><li><a class="" href="http://localhost:5173/players/125" data-discover="true"><div class="card-div"><h4>Min-Jae Kim</h4><p>Bayern Munich</p></div></a></li><li><a class="" href="http://localhost:5173/players/126" data-discover="true"><div class="card-div"><h4>Dayot Upamecano</h4><p>Bayern Munich</p></div></a></li><li><a class="" href="http://localhost:5173/players/127" data-discover="true"><div class="card-div"><h4>Leon Goretzka</h4><p>Bayern Munich</p></div></a></li><li><a class="" href="http://localhost:5173/players/128" data-discover="true"><div class="card-div"><h4>Jamal Musiala</h4><p>Bayern Munich</p></div></a></li><li><a class="" href="http://localhost:5173/players/129" data-discover="true"><div class="card-div"><h4>Thomas Müller</h4><p>Bayern Munich</p></div></a></li><li><a class="" href="http://localhost:5173/players/130" data-discover="true"><div class="card-div"><h4>Serge Gnabry</h4><p>Bayern Munich</p></div></a></li><li><a class="" href="http://localhost:5173/players/131" data-discover="true"><div class="card-div"><h4>Kingsley Coman</h4><p>Bayern Munich</p></div></a></li><li><a class="" href="http://localhost:5173/players/132" data-discover="true"><div class="card-div"><h4>Harry Kane</h4><p>Bayern Munich</p></div></a></li><li><a class="" href="http://localhost:5173/players/133" data-discover="true"><div class="card-div"><h4>Gregor Kobel</h4><p>Borussia Dortmund </p></div></a></li><li><a class="" href="http://localhost:5173/players/135" data-discover="true"><div class="card-div"><h4>Ramy Bensebaini</h4><p>Borussia Dortmund </p></div></a></li><li><a class="" href="http://localhost:5173/players/136" data-discover="true"><div class="card-div"><h4>Nico Schlotterbeck</h4><p>Borussia Dortmund </p></div></a></li><li><a class="" href="http://localhost:5173/players/137" data-discover="true"><div class="card-div"><h4>Waldemar Anton</h4><p>Borussia Dortmund </p></div></a></li><li><a class="" href="http://localhost:5173/players/138" data-discover="true"><div class="card-div"><h4>Pascal Groß</h4><p>Borussia Dortmund </p></div></a></li><li><a class="" href="http://localhost:5173/players/139" data-discover="true"><div class="card-div"><h4>Julian Brandt</h4><p>Borussia Dortmund </p></div></a></li><li><a class="" href="http://localhost:5173/players/140" data-discover="true"><div class="card-div"><h4>Marco Reus</h4><p>Borussia Dortmund </p></div></a></li><li><a class="" href="http://localhost:5173/players/141" data-discover="true"><div class="card-div"><h4>Karim Adeyemi</h4><p>Borussia Dortmund </p></div></a></li><li><a class="" href="http://localhost:5173/players/142" data-discover="true"><div class="card-div"><h4>Jamie Bynoe-Gittens</h4><p>Borussia Dortmund </p></div></a></li><li><a class="" href="http://localhost:5173/players/143" data-discover="true"><div class="card-div"><h4>Serhou Guirassy</h4><p>Borussia Dortmund </p></div></a></li><li><a class="" href="http://localhost:5173/players/134" data-discover="true"><div class="card-div"><h4>Yan Couto</h4><p>RB Leipzig </p></div></a></li><li><a class="" href="http://localhost:5173/players/66" data-discover="true"><div class="card-div"><h4>Kylian Mbappé</h4><p>Paris Saint-Germain</p></div></a></li><li><a class="" href="http://localhost:5173/players/144" data-discover="true"><div class="card-div"><h4>Gianluigi Donnarumma</h4><p>Paris Saint-Germain</p></div></a></li><li><a class="" href="http://localhost:5173/players/145" data-discover="true"><div class="card-div"><h4>Achraf Hakimi</h4><p>Paris Saint-Germain</p></div></a></li><li><a class="" href="http://localhost:5173/players/146" data-discover="true"><div class="card-div"><h4>Nuno Mendes</h4><p>Paris Saint-Germain</p></div></a></li><li><a class="" href="http://localhost:5173/players/147" data-discover="true"><div class="card-div"><h4>Marquinhos</h4><p>Paris Saint-Germain</p></div></a></li><li><a class="" href="http://localhost:5173/players/148" data-discover="true"><div class="card-div"><h4>Lucas Hernández</h4><p>Paris Saint-Germain</p></div></a></li><li><a class="" href="http://localhost:5173/players/149" data-discover="true"><div class="card-div"><h4>Vitinha</h4><p>Paris Saint-Germain</p></div></a></li><li><a class="" href="http://localhost:5173/players/150" data-discover="true"><div class="card-div"><h4>Warren Zaïre-Emery</h4><p>Paris Saint-Germain</p></div></a></li><li><a class="" href="http://localhost:5173/players/151" data-discover="true"><div class="card-div"><h4>Fabián Ruiz</h4><p>Paris Saint-Germain</p></div></a></li><li><a class="" href="http://localhost:5173/players/152" data-discover="true"><div class="card-div"><h4>Ousmane Dembélé</h4><p>Paris Saint-Germain</p></div></a></li><li><a class="" href="http://localhost:5173/players/153" data-discover="true"><div class="card-div"><h4>Khvicha Kvaratskhelia</h4><p>Paris Saint-Germain</p></div></a></li><li><a class="" href="http://localhost:5173/players/154" data-discover="true"><div class="card-div"><h4>Gonçalo Ramos</h4><p>Paris Saint-Germain</p></div></a></li></ul></div><div class="player-info"><div class="player-description" style="background-image: url(&quot;https://www.thesportsdb.com/images/media/player/cutout/41rife1697979996.png/medium&quot;);"><h2>Alessandro Bastoni</h2><p>Center Back</p><p>date of birth: 13 April 1999</p><p>Nationality: Italy</p></div><div class="player-contract"><h2>Contract Details</h2><p>Club: Inter Milan</p><p>contracted till: 30 June 2030</p><p>wages: 230000.00</p></div><div class="player-transfers-div"><h2>player career</h2><div><table><tbody></tbody></table></div></div></div></div></div>
+    <script type="module" src="./Football Transfers_files/main.jsx"></script>
+  
+
+</body></html>

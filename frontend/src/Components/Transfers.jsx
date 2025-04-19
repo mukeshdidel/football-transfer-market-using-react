@@ -40,8 +40,8 @@ export default function Players() {
                     <tbody>
                         {transfers.map(transfer => <tr key={transfer.transfer_id}>
                             <td><Link to={`/players/${transfer.player_id}`}>{transfer.player_name}</Link></td>
-                            <td>{transfer.from_club_name}</td>
-                            <td>{transfer.to_club_name}</td>
+                            <td><Link to={`/clubs/${transfer.from_club_id}`}>{transfer.from_club_name}</Link></td>
+                            <td><Link to={`/clubs/${transfer.to_club_id}`}>{transfer.to_club_name}</Link></td>
                             <td>{moment(transfer.transfer_date).format("DD MMMM YYYY")}</td>
                             <td>{transfer.transfer_fee}</td>
                         </tr>

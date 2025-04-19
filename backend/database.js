@@ -132,7 +132,7 @@ async function transferPlayer(player_id, from_club_id, to_club_id, transfer_fee,
 
 
 async function getAllTransfers(){
-    const [rows] = await pool.query(`SELECT t.transfer_id, t.player_id, p.player_name,p.player_url, c1.club_name AS from_club_name, c1.club_url as from_club_url, c2.club_name AS to_club_name, c2.club_url as to_club_url, t.transfer_fee, t.transfer_date 
+    const [rows] = await pool.query(`SELECT t.transfer_id, t.player_id, p.player_name,p.player_url, c1.club_name AS from_club_name, c1.club_id as from_club_id, c1.club_url as from_club_url, c2.club_name AS to_club_name, c2.club_id as to_club_id, c2.club_url as to_club_url, t.transfer_fee, t.transfer_date 
                                     FROM transfers t
                                     JOIN players p ON t.player_id = p.player_id
                                     JOIN clubs c1 ON t.from_club_id = c1.club_id    
