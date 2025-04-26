@@ -3,23 +3,24 @@ import { api } from './api/data.jsx';
 import { Link, NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
+import { useAuth } from './AuthContext.jsx';
+
+
 
 import './styles/leagues.css';
 
 export default function Leagues() {
+    const {token,user} = useAuth();
     const [leagues, setLeagues] = useState([]);
     const [input, setInput] = useState('');
 
     useEffect(() => {
         async function fetch() {
-            const fetchedLeagues = await getAllLeagues(input);
+            const fetchedLeagues = await getAllLeagues(input,token);
             setLeagues(fetchedLeagues);
         }
         fetch();
     }, [input]);
-
-
-
 
 
     return (
@@ -59,9 +60,9 @@ export default function Leagues() {
 
 
 
-async function getAllLeagues(input) {
+async function getAllLeagues(input,token) {
     try {
-        const response = await api.get(`/leagues?search=${input}%`);
+        const response = await api.get(`/leagues?search=${input}%`, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         console.error('Error fetching leagues', error);

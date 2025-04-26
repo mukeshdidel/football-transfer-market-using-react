@@ -5,7 +5,13 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 
+import { useAuth } from '../AuthContext.jsx';
+
+
 export default function PlayerRecords(){
+    const {token,user} = useAuth();
+    
+    
     const [playerRecords, setPlayerRecords] = useState([]);
     const [selectedPlayerRecord, setSelectedPlayerRecord] = useState('highest-player-wages');
 
@@ -14,7 +20,7 @@ export default function PlayerRecords(){
     useEffect(()=>{
         async function fetch(){
             const query = 'highest-player-wages';
-            const fetchedPlayerRecords = await getPlayerRecords(query);
+            const fetchedPlayerRecords = await getPlayerRecords(query,token);
             setPlayerRecords(fetchedPlayerRecords);
 
         }
@@ -26,7 +32,7 @@ export default function PlayerRecords(){
         const query = e.target.value;
         setSelectedPlayerRecord(query);
 
-        const fetchedPlayerRecords = await getPlayerRecords(query);
+        const fetchedPlayerRecords = await getPlayerRecords(query, token);
         setPlayerRecords(fetchedPlayerRecords);
     }
 
@@ -88,7 +94,7 @@ export default function PlayerRecords(){
 }
 
 
-async function getPlayerRecords(query){
-    const response = await api.post('/player-records', { query: query });
+async function getPlayerRecords(query, token){
+    const response = await api.post('/player-records', { query: query }, { headers: { Authorization: `Bearer ${token}` } });
     return response.data;
 }

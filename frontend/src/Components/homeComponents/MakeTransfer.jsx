@@ -1,11 +1,15 @@
-
-
 import {useState, useEffect } from 'react';
-
 import { api } from '../api/data.jsx';
 
-export default function MakeTransfer(){
 
+import { useAuth } from '../AuthContext.jsx';
+
+
+
+export default function MakeTransfer(){
+    const {token,user} = useAuth();
+    
+    
     const [FLeagues, setFLeagues] = useState([]);
     const [FClubs, setFClubs] = useState([]);
     const [TPlayers, setTPlayers] = useState([]);
@@ -29,7 +33,7 @@ export default function MakeTransfer(){
 
     useEffect(()=>{
         async function fetch(){
-            const fetchedLeagues = await getTransferDivLeagues();
+            const fetchedLeagues = await getTransferDivLeagues(token);
             setFLeagues(fetchedLeagues);
             setTLeagues(fetchedLeagues);
         }
@@ -38,7 +42,7 @@ export default function MakeTransfer(){
 
     useEffect(()=>{
         async function fetch(){
-            const fetchedClubs = await getTransferDivClubs(FSLeagueID);
+            const fetchedClubs = await getTransferDivClubs(FSLeagueID,token);
             setFClubs(fetchedClubs);
         }
         fetch(); 
@@ -46,7 +50,7 @@ export default function MakeTransfer(){
 
     useEffect(()=>{
         async function fetch(){
-            const fetchedPlayers = await getTransferDivPlayers(FSClubID);
+            const fetchedPlayers = await getTransferDivPlayers(FSClubID,token);
             setTPlayers(fetchedPlayers);
         }
         fetch(); 
@@ -55,7 +59,7 @@ export default function MakeTransfer(){
 
     useEffect(()=>{
         async function fetch(){
-            const fetchedClubs = await getTransferDivClubs(TSLeagueID);
+            const fetchedClubs = await getTransferDivClubs(TSLeagueID,token);
             setTClubs(fetchedClubs);
         }
         fetch(); 
@@ -95,7 +99,7 @@ export default function MakeTransfer(){
         }
         console.log('transferData:', transferData);
 
-        await postTransferDetails(transferData);
+        await postTransferDetails(transferData,token);
 
         setTransferFee('');
         setStartDate('');
@@ -167,27 +171,27 @@ export default function MakeTransfer(){
 }
 
 
-async function  getTransferDivLeagues(){
+async function  getTransferDivLeagues(token){
     try {
-        const response = await api.get('/leagues?search=%');
+        const response = await api.get('/leagues?search=%', { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         console.error('Error fetching transfer div data', error);
     }
 } 
 
-async function getTransferDivClubs(leagueId) {
+async function getTransferDivClubs(leagueId,token) {
     try{
-        const response = await api.get(`/leagues/${leagueId}`);
+        const response = await api.get(`/leagues/${leagueId}`, { headers: { Authorization: `Bearer ${token}` } });
         return response.data.clubsObj;
     }
     catch (error) {
         console.error('Error fetching transfer div club data', error);
     }
 }
-async function getTransferDivPlayers(clubId) {
+async function getTransferDivPlayers(clubId,token) {
     try{
-        const response = await api.get(`/clubs/${clubId}`);
+        const response = await api.get(`/clubs/${clubId}`, { headers: { Authorization: `Bearer ${token}` } });
         return response.data.playersObj;
     }
     catch (error) {
@@ -196,9 +200,9 @@ async function getTransferDivPlayers(clubId) {
 }
 
 
-async function postTransferDetails(transferData){
+async function postTransferDetails(transferData,token){
     try {
-        await api.post('/post-transfers', transferData);
+        await api.post('/post-transfers', transferData, { headers: { Authorization: `Bearer ${token}` } });
         alert(response.data.message || 'Transfer added successfully');
     } catch (error) {
         if(error.response?.data?.error){

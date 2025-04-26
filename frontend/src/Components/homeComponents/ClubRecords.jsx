@@ -3,15 +3,22 @@ import { api } from '../api/data.jsx';
 import { Link } from "react-router-dom";
 import moment from "moment";
 
+import { useAuth } from '../AuthContext.jsx';
+
+
 
 export default function ClubRecords(){
+    
+    const {token,user} = useAuth();
+    
+    
     const [clubRecords, setClubRecords] = useState([]);
     const [selectedClubRecord, setSelectedClubRecord] = useState('total-club-wages');
 
         useEffect(()=>{
             async function fetch(){
                 const query = 'total-club-wages';
-                const fetchedClubRecords = await getClubRecords(query);
+                const fetchedClubRecords = await getClubRecords(query,token);
                 setClubRecords(fetchedClubRecords);
             
             }     
@@ -24,7 +31,7 @@ export default function ClubRecords(){
             const query = e.target.value;
             setSelectedClubRecord(query);
     
-            const fetchedClubRecords = await getClubRecords(query);
+            const fetchedClubRecords = await getClubRecords(query,token);
             setClubRecords(fetchedClubRecords);
 
         }
@@ -99,9 +106,9 @@ export default function ClubRecords(){
 
 }
 
-async function getClubRecords(query){
+async function getClubRecords(query,token){
     try{
-        const response = await api.post('/club-records', {query: query});
+        const response = await api.post('/club-records', {query: query}, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     }catch(error){
         console.error(error);

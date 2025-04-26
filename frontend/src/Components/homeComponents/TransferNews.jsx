@@ -5,14 +5,16 @@ import moment from "moment";
 
 import whiteArrow from '../../assets/white-arrow-png-41955.png';
 
+import { useAuth } from '../AuthContext.jsx';
+
 
 export default function TransferNews(){
-
+    const {token,user} = useAuth();
     const [Last5transfers, setLast5TransferNews] = useState([]);
 
     useEffect(()=>{
         async function fetch(){
-            let fetchedTransferNews = await getTransferNews();
+            let fetchedTransferNews = await getTransferNews(token);
             fetchedTransferNews = fetchedTransferNews.filter(transfer => transfer.transfer_id > fetchedTransferNews.length - 5);
             setLast5TransferNews(fetchedTransferNews);
         }
@@ -44,9 +46,9 @@ export default function TransferNews(){
 
 
 
-async function getTransferNews(){
+async function getTransferNews(token){
     try{
-        const response = await api.get('/transfers')
+        const response = await api.get('/transfers', { headers: { Authorization: `Bearer ${token}` } })
         return response.data;
     }
     catch(error){

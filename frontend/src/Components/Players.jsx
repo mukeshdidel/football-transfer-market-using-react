@@ -3,16 +3,21 @@ import { api } from './api/data.jsx';
 import { Link, NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
+import { useAuth } from './AuthContext.jsx';
+
+
 
 import './styles/players.css';
 
 export default function Players() {
+    const {token,user} = useAuth();
+    
     const [players, setPlayers] = useState([]);
     const [input, setInput] = useState('');
 
     useEffect(() => {
         async function fetch() {
-            const fetchedPlayers = await getAllPlayers(input);
+            const fetchedPlayers = await getAllPlayers(input,token);
             setPlayers(fetchedPlayers);
         }
         fetch();
@@ -55,9 +60,9 @@ export default function Players() {
 
 
 
-async function getAllPlayers(input) {
+async function getAllPlayers(input,token) {
     try {
-        const response = await api.get(`/players?search=${input}%`);
+        const response = await api.get(`/players?search=${input}%`, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         console.error('Error fetching leagues', error);

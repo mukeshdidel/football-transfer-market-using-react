@@ -8,6 +8,15 @@ const pool = mysql.createPool({ // pool is a collection of connection  in DB
     multipleStatements: true
 }).promise();
 
+async function signup(username, password){
+    const [rows] = await pool.query(`insert into users value( ?, ?, 0 )`,[username, password]);
+    return rows;
+}
+
+async function fetchUser(username){
+    const [rows] = await pool.query(`select * from users where user_name = ?`,[username]);
+    return rows;
+}
 
 async function getAllLeagues(league_name){
     const [rows] = await pool.query(`SELECT * FROM leagues where league_name like ?;`,[league_name]);
@@ -236,4 +245,4 @@ async function oldestFormation(){
     return rows[0];
 }
 
-export {getAllLeagues,getLeagueInfoById,addLeague, getAllClubs,getClub, addClub, getClubsByLeague, getAllPlayers,getClubInfoById ,getTotalClubWages,  getPlayersByClub,getPlayerInfoById, addFinance,transferPlayer,addPlayer,getAllTransfers,getTransferOUTclub,getTransferINclub,getPlayerJourney,toalLeageWages,totalClubWages ,totalLeaguePlayers, totalClubProfit, totalClubLoss, totalClubNetSpent, ClubAvgAge, PlayerWages, playerCareerFee, PlayerNoOfTransfers, playerTransferFee,  youngestFormation, playerAge, oldestFormation};
+export {getAllLeagues,getLeagueInfoById,addLeague, getAllClubs,getClub, addClub, getClubsByLeague, getAllPlayers,getClubInfoById ,getTotalClubWages,  getPlayersByClub,getPlayerInfoById, addFinance,transferPlayer,addPlayer,getAllTransfers,getTransferOUTclub,getTransferINclub,getPlayerJourney,toalLeageWages,totalClubWages ,totalLeaguePlayers, totalClubProfit, totalClubLoss, totalClubNetSpent, ClubAvgAge, PlayerWages, playerCareerFee, PlayerNoOfTransfers, playerTransferFee,  youngestFormation, playerAge, oldestFormation,signup,fetchUser };

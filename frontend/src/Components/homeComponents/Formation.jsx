@@ -3,9 +3,13 @@ import { api } from '../api/data.jsx';
 import { Link } from "react-router-dom";
 import moment from "moment";
 
+import { useAuth } from '../AuthContext.jsx';
+
+
 
 export default function Formation(){
-
+    const {token,user} = useAuth();
+    
     const [selectedFormation, setSelectedFormation] = useState('youngest-players');
 
     const [cf, setCf] = useState([]);
@@ -26,7 +30,7 @@ export default function Formation(){
     useEffect(() => {
         async function fetch() {
             const query = 'youngest-players';
-            const fetchedFormation = await getFormation(query);
+            const fetchedFormation = await getFormation(query,token);
 
             const temp = {
                 cf: {}, lw: {}, rw: {}, cam: {},cm: {},dm: {}, lb: {}, cb1: {}, cb2: {}, rb: {},gk: {}
@@ -89,7 +93,7 @@ export default function Formation(){
     async function handleChangeFormation(e) {
         setSelectedFormation(e.target.value);
         const query = e.target.value;
-        const fetchedFormation = await getFormation(query);
+        const fetchedFormation = await getFormation(query,token);
 
         const temp = {
             cf: {}, lw: {}, rw: {}, cam: {},cm: {},dm: {}, lb: {}, cb1: {}, cb2: {}, rb: {},gk: {}
@@ -242,9 +246,9 @@ export default function Formation(){
 }
 
 
-async function getFormation(query){
+async function getFormation(query,token){
     try{
-        const response = await api.post('/formation', {query: query});
+        const response = await api.post('/formation', {query: query}, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     }catch(error){
         console.error(error);

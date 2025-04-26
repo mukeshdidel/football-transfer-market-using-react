@@ -4,9 +4,13 @@ import {useState, useEffect} from 'react';
 import {api} from './api/data.jsx';
 import moment from "moment";
 
+import { useAuth } from './AuthContext.jsx';
+
 
 export default function Club(){
     const { id } = useParams();
+    const {token,user} = useAuth();
+
 
 
     const [clubInfo, setClubInfo] = useState({});
@@ -34,9 +38,10 @@ export default function Club(){
 
 
     useEffect(()=>{
+
         async function fetch(){
 
-            const fetchedClubInfo = await getClubInfo(id);
+            const fetchedClubInfo = await getClubInfo(id,token);
             
             setClubInfo(fetchedClubInfo.clubObj);
             setClubFinance(fetchedClubInfo.clubFinance);
@@ -59,7 +64,7 @@ export default function Club(){
         }
 
         const playerData = {id,formPlayerName,formPlayerNation,formPlayerDOB,formPlayerStartDate,formPlayerEndDate,formPlayerWages, formPlayerPosi, formPlayerURL}
-        await addPlayer(playerData);
+        await addPlayer(playerData,token);
 
         setFormPlayerName('');
         setFormPlayerDOB('');
@@ -70,7 +75,7 @@ export default function Club(){
         setFormPlayerURL('');
     
 
-        const fetchedClubInfo = await getClubInfo(id);
+        const fetchedClubInfo = await getClubInfo(id,token);
 
 
         setPlayersBYclub(fetchedClubInfo.playersObj);
@@ -89,12 +94,12 @@ export default function Club(){
         }
 
         const financeData = {formFinanceYear, formFinanceRevenue, id }
-        await addFinance(financeData);
+        await addFinance(financeData,token);
 
         setFormFinanceYear('');
         setFormFinanceRevenue('');
 
-        const fetchedClubInfo = await getClubInfo(id);
+        const fetchedClubInfo = await getClubInfo(id,token);
 
 
         setClubFinance(fetchedClubInfo.clubFinance);
@@ -115,6 +120,7 @@ export default function Club(){
             <div className='club-finance'>
                 <h3>finances</h3>
                 <h4>total wages: {clubWages}</h4>
+                { user.is_admin == 1 && 
                 <form className='finance-form' onSubmit={e =>handleFinanceSubmit(e)}>
                     <label>Year</label>
                     <input type='number' name='financeYear' value={formFinanceYear} onChange={e => setFormFinanceYear(e.target.value)} required />  
@@ -122,6 +128,7 @@ export default function Club(){
                     <input type='number' name='financeRevenue' value={formFinanceRevenue} onChange={e => setFormFinanceRevenue(e.target.value)} required />
                     <button type='submit'>+</button>
                 </form>
+                }
                 <table className='finance-table'>
                     <thead>
                         <tr>
@@ -145,7 +152,8 @@ export default function Club(){
                     </tbody>
                 </table>
             </div>
-            <form className='player-form' onSubmit={e=>hanldePlayerSubmit(e)}>
+            { user.is_admin == 1 && 
+                <form className='player-form' onSubmit={e=>hanldePlayerSubmit(e)}>
                 <h2>Add Player</h2>
                 <label>Player Name</label>
                 <input type='text' name='playerName' value={formPlayerName} onChange={e => setFormPlayerName(e.target.value)} required />
@@ -181,6 +189,7 @@ export default function Club(){
 
                 <button type='submit'>Submit Player</button>
             </form>
+            }
             <ul className='playersbyclub-list'>
                 {playersBYclub.map(player => <li key={player.player_id}>
                     <NavLink to={`/players/${player.player_id}`}>
@@ -245,9 +254,9 @@ export default function Club(){
 }
 
 
-async function getClubInfo(clubId){
+async function getClubInfo(clubId,token){
     try{
-        const response = await api.get(`/clubs/${clubId}`);
+        const response = await api.get(`/clubs/${clubId}`, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     }catch(error){
         console.error('Error fetching league info', error);
@@ -257,9 +266,9 @@ async function getClubInfo(clubId){
 
 
 
-async function addPlayer(playerData){
+async function addPlayer(playerData,token){
     try {
-        const response = await api.post("/add-player", playerData);
+        const response = await api.post("/add-player", playerData, { headers: { Authorization: `Bearer ${token}` } });
         alert(response.data.message || 'Player added successfully');
     } catch (error) {
         if(error.response?.data?.error){
@@ -268,9 +277,9 @@ async function addPlayer(playerData){
     } 
 }
 
-async function addFinance(financeData){
+async function addFinance(financeData,token){
     try {
-        const response = await api.post("/add-finance", financeData);
+        const response = await api.post("/add-finance", financeData, { headers: { Authorization: `Bearer ${token}` } });
         alert(response.data.message || 'Finance added successfully');
     } catch (error) {
         if(error.response?.data?.error){

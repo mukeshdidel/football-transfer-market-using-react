@@ -5,9 +5,13 @@ import {useState, useEffect} from 'react';
 import {api} from './api/data.jsx';
 import moment from "moment";
 
+import { useAuth } from './AuthContext.jsx';
+
+
 
 
 export default function Player(){
+    const {token,user} = useAuth();
     const { id } = useParams();
 
     const [playerInfo, setPlayerInfo] = useState([]);
@@ -15,7 +19,7 @@ export default function Player(){
 
     useEffect(()=>{
         async function fetch(){
-            const fetchedPlayerInfo = await getPlayerInfo(id);
+            const fetchedPlayerInfo = await getPlayerInfo(id,token);
             setPlayerInfo(fetchedPlayerInfo.playerInfo[0]);
             setPlayerJourney(fetchedPlayerInfo.playerJourney);
 
@@ -97,9 +101,9 @@ export default function Player(){
 }
 
 
-async function getPlayerInfo(playerId){
+async function getPlayerInfo(playerId,token){
     try{
-        const response = await api.get(`/players/${playerId}`);
+        const response = await api.get(`/players/${playerId}`, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     }catch(error){
         console.error('Error fetching league info', error);

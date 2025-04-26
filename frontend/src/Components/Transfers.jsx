@@ -3,24 +3,24 @@ import { api } from './api/data.jsx';
 import { Link, NavLink } from "react-router-dom";
 import moment from "moment";
 
+import { useAuth } from './AuthContext.jsx';
+
 
 import './styles/transfers.css';
 
 export default function Players() {
+    const {token,user} = useAuth();
+    
     const [transfers, setTransfers] = useState([]);
 
     useEffect(() => {
         async function fetch() {
-            const fetchedTransfers = await getAllTransfers();
+            const fetchedTransfers = await getAllTransfers(token);
             setTransfers(fetchedTransfers);
             console.log(fetchedTransfers);
         }
         fetch();
     }, []);
-
-
-
-
 
     return (
         <>
@@ -56,9 +56,9 @@ export default function Players() {
 
 
 
-async function getAllTransfers() {
+async function getAllTransfers(token) {
     try {
-        const response = await api.get(`/transfers`);
+        const response = await api.get(`/transfers`, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         console.error('Error fetching leagues', error);

@@ -1,7 +1,9 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {Navigate, createBrowserRouter, RouterProvider } from "react-router-dom";
+
+
+
+
 import NavBar from "./Components/NavBar.jsx";
-
-
 import Leagues from './Components/Leagues.jsx';
 import Clubs from './Components/Clubs.jsx';
 import Players from './Components/Players.jsx';
@@ -10,6 +12,8 @@ import Home from './Components/Home.jsx';
 import League from './Components/League.jsx';
 import Club from './Components/Club.jsx';
 import Player from './Components/Player.jsx';
+import Signup from "./Components/Signup.jsx";
+import Login from "./Components/Login.jsx";
 
 
 import "./App.css";
@@ -17,10 +21,32 @@ import "./App.css";
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Navigate to="/login" />,
+  },
+  {
+    path: "/home",
     element: (
       <>
         <NavBar />
         <Home />
+      </>
+    ),
+  },
+  {
+    path: "/signup",
+    element: (
+      <>
+        <NavBar />
+        <Signup />
+      </>
+    ),
+  },
+  {
+    path: "/login",
+    element: (
+      <>
+        <NavBar />
+        <Login />
       </>
     ),
   },
@@ -81,6 +107,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  
   return (
   <>
     <RouterProvider router={router} />

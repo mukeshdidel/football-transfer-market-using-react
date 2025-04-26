@@ -1,9 +1,12 @@
 import {useState, useEffect } from 'react';
 import { api } from '../api/data.jsx';
 
+import { useAuth } from '../AuthContext.jsx';
+
 
 export default function AddLeague(){
-
+    const {token,user} = useAuth();
+    
     const [leagueName , setLeagueName] = useState('')
     const [country, setCountry] = useState('')
     const [description, setDescription] = useState('')
@@ -16,7 +19,7 @@ export default function AddLeague(){
             return;
         }
         const data = { leagueName,  country, description, leagueURL}
-        await addLeague(data)
+        await addLeague(data, token)
 
         setLeagueName('');
         setCountry('');
@@ -43,9 +46,9 @@ export default function AddLeague(){
     );
 }
 
-async function addLeague(league) {
+async function addLeague(league, token) {
     try {
-        const response = await api.post('/add-league', league);
+        const response = await api.post('/add-league', league, { headers: { Authorization: `Bearer ${token}` } });
         alert(response.data.message || 'League added successfully');
     } 
     catch (error) {

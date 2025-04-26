@@ -4,8 +4,13 @@ import {useState, useEffect} from 'react';
 import {api} from './api/data.jsx';
 import {NavLink} from 'react-router-dom';
 
+import { useAuth } from './AuthContext.jsx';
+
+
 
 export default function League(){
+    const {token,user} = useAuth();
+    
     const { id } = useParams();
     const [leagueInfo, setLeagueInfo] = useState({});
     const [clubsByleague, setClubsBYleague] = useState([]);
@@ -16,7 +21,7 @@ export default function League(){
 
     useEffect(()=>{
         async function fetch(){
-            const fetchedLeagueInfo = await getLeagueInfo(id);
+            const fetchedLeagueInfo = await getLeagueInfo(id,token);
             setLeagueInfo(fetchedLeagueInfo.leagueObj);
             setClubsBYleague(fetchedLeagueInfo.clubsObj);
         }
@@ -30,13 +35,13 @@ export default function League(){
             return;
         }
         const ClubData = {formClubName,id,formClubFoundedYear,formClubLogo};
-        await addClub(ClubData);
+        await addClub(ClubData,token);
 
         setFormClubName('');
         setFormClubFoundedYear('');
         setFormClubLogo('');
 
-        const fetchedLeagueInfo = await getLeagueInfo(id);
+        const fetchedLeagueInfo = await getLeagueInfo(id,token);
         setLeagueInfo(fetchedLeagueInfo.leagueObj);
         setClubsBYleague(fetchedLeagueInfo.clubsObj);
 
@@ -50,6 +55,7 @@ export default function League(){
                 <h2>{leagueInfo.league_name}</h2>
                 <p>{leagueInfo.description}</p>
             </div>
+            { user.is_admin == 1 && 
             <form onSubmit={e=>hanldeClubSubmit(e)}>
                 <h2>Add Club</h2>
                 <label>Club Name</label>
@@ -61,6 +67,7 @@ export default function League(){
 
                 <button type='submit'>Submit Club</button>
             </form>
+            }
 
             <ul className='clubsbyleague-list'>
                 {clubsByleague.map(club => <li key={club.club_id}>
@@ -83,9 +90,9 @@ export default function League(){
 }
 
 
-async function getLeagueInfo(leagueId){
+async function getLeagueInfo(leagueId,token){
     try{
-        const response = await api.get(`/leagues/${leagueId}`);
+        const response = await api.get(`/leagues/${leagueId}`, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     }catch(error){
         console.error('Error fetching league info', error);
@@ -95,9 +102,9 @@ async function getLeagueInfo(leagueId){
 
 
 
-async function addClub(clubData){
+async function addClub(clubData,token){
     try {
-        const response = await api.post("/add-club", clubData);
+        const response = await api.post("/add-club", clubData, { headers: { Authorization: `Bearer ${token}` } });
         alert(response.data.message || 'Club added successfully');
         
     } catch (error) {

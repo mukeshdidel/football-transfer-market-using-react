@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors'
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
-import { getAllLeagues,getLeagueInfoById,addLeague, getAllClubs, getClub, getClubInfoById, getTotalClubWages, getPlayersByClub, addClub, getClubsByLeague, getAllPlayers,getPlayerInfoById, addFinance,transferPlayer, addPlayer,getAllTransfers,getTransferOUTclub,getTransferINclub,getPlayerJourney, toalLeageWages, totalLeaguePlayers, totalClubWages, totalClubProfit, totalClubLoss,totalClubNetSpent, ClubAvgAge ,PlayerWages , playerCareerFee, PlayerNoOfTransfers, playerTransferFee,  youngestFormation, playerAge, oldestFormation} from './database.js';
-
+import { getAllLeagues,getLeagueInfoById,addLeague, getAllClubs, getClub, getClubInfoById, getTotalClubWages, getPlayersByClub, addClub, getClubsByLeague, getAllPlayers,getPlayerInfoById, addFinance,transferPlayer, addPlayer,getAllTransfers,getTransferOUTclub,getTransferINclub,getPlayerJourney, toalLeageWages, totalLeaguePlayers, totalClubWages, totalClubProfit, totalClubLoss,totalClubNetSpent, ClubAvgAge ,PlayerWages , playerCareerFee, PlayerNoOfTransfers, playerTransferFee,  youngestFormation, playerAge, oldestFormation, signup, fetchUser} from './database.js';
 
 const app = express();
 
@@ -10,8 +11,68 @@ app.use(express.json());
 app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 
+const jwt_secret_key = 'MuKeSh@sEcReT_kEy_FoOtBaLl&MaRkEt';
 
-app.get('/leagues', async (req, res) => {
+
+app.post('/signup', async (req,res)=>{
+    try{ 
+        const {username, password} = req.body;
+        const [user] = await fetchUser(username);
+
+        if(user){
+            return res.status(401).json({error: 'user already exists'}); 
+        }
+
+        const hassedPassword = await bcrypt.hash(password, 10);
+
+        const response = await signup(username, hassedPassword);
+        res.status(201).send()
+    }
+    catch(error){
+        console.log("error: ", error);
+        res.status(500).send();
+    }
+})
+
+
+app.post('/login', async (req, res) => {
+    try{
+        const {username, password} = req.body;
+        const [user] = await fetchUser(username);
+        if(!user){
+            return res.status(401).json({error: 'user not found'});
+        }
+
+        const isPassMatch = await bcrypt.compare(password , user.password);
+
+        if(!isPassMatch){
+            return res.status(401).json({error: 'invalid password'});
+        }
+
+        const token = jwt.sign(user, jwt_secret_key)
+        res.json({token , user})
+
+    }catch(error){
+        res.status(500).send();
+    }
+})
+
+function authenticateToken(req, res, next){
+    const authHeader = req.headers['authorization'];
+    const token = authHeader ? authHeader.split(' ')[1] : undefined
+
+    if(!token){
+        return res.sendStatus(401);
+    }
+
+    jwt.verify(token, jwt_secret_key, (err, user)=>{
+        if(err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    })
+}
+
+app.get('/leagues', authenticateToken, async (req, res) => {
     try{
         const searchQuery = req.query.search || '';
         const leagues = await getAllLeagues(searchQuery);
@@ -24,7 +85,7 @@ app.get('/leagues', async (req, res) => {
 })
 
 
-app.get('/leagues/:id', async (req, res) => {
+app.get('/leagues/:id', authenticateToken, async (req, res) => {
     try{
         const league = await getLeagueInfoById(req.params.id);
         const clubs = await getClubsByLeague(req.params.id);
@@ -37,7 +98,7 @@ app.get('/leagues/:id', async (req, res) => {
     }
 })
 
-app.post('/add-league', async (req, res) => {
+app.post('/add-league', authenticateToken, async (req, res) => {
     const response = await addLeague(req.body.leagueName, req.body.country, req.body.description, req.body.leagueURL );
     if (response.error) {
         return res.status(500).json({ error: response.error });
@@ -45,7 +106,7 @@ app.post('/add-league', async (req, res) => {
     res.json({ message: 'League added successfully', result });
 });
 
-app.get('/clubs', async (req, res) => {
+app.get('/clubs', authenticateToken, async (req, res) => {
     try{
         const searchQuery = req.query.search || '';
         const clubs = await getAllClubs(searchQuery);
@@ -57,7 +118,7 @@ app.get('/clubs', async (req, res) => {
     }
 })
 
-app.get('/clubs/:id', async (req, res) => {
+app.get('/clubs/:id', authenticateToken, async (req, res) => {
     try{
         const club = await getClub(req.params.id);
         const clubFinance = await getClubInfoById(req.params.id);
@@ -77,7 +138,7 @@ app.get('/clubs/:id', async (req, res) => {
     }
 })
 
-app.post('/add-club', async (req, res) => {
+app.post('/add-club', authenticateToken, async (req, res) => {
     const response = await addClub(req.body.formClubName,req.body.id ,req.body.formClubFoundedYear, req.body.formClubLogo);    
     if (response.error) {
         return res.status(500).json({ error: response.error });
@@ -87,7 +148,7 @@ app.post('/add-club', async (req, res) => {
 })
 
 
-app.get('/players', async (req, res) => {
+app.get('/players', authenticateToken, async (req, res) => {
     try{
         const searchQuery = req.query.search || '';
         const players = await getAllPlayers(searchQuery);
@@ -99,7 +160,7 @@ app.get('/players', async (req, res) => {
     }
 })
 
-app.post('/add-player',async  (req, res) => {
+app.post('/add-player', authenticateToken,async  (req, res) => {
     const playerData = req.body;
     const response = await addPlayer(playerData.formPlayerName, playerData.formPlayerNation, playerData.formPlayerDOB, playerData.formPlayerStartDate, playerData.formPlayerEndDate, playerData.formPlayerWages, playerData.id,playerData.formPlayerPosi, playerData.formPlayerURL);
 
@@ -111,7 +172,7 @@ app.post('/add-player',async  (req, res) => {
 
 })
 
-app.get('/players/:id', async (req, res) => {
+app.get('/players/:id', authenticateToken, async (req, res) => {
     try{
         const playerInfo = await getPlayerInfoById(req.params.id);
         const playerJourney = await getPlayerJourney(req.params.id);
@@ -128,7 +189,7 @@ app.get('/players/:id', async (req, res) => {
 })
 
 
-app.post(`/add-finance`,async (req, res) => {
+app.post(`/add-finance`, authenticateToken,async (req, res) => {
 
     const response = await addFinance(req.body.formFinanceYear, req.body.formFinanceRevenue, req.body.id);
 
@@ -141,7 +202,7 @@ app.post(`/add-finance`,async (req, res) => {
 })
 
 
-app.post(`/post-transfers`,async (req, res) => {
+app.post(`/post-transfers`, authenticateToken,async (req, res) => {
         const transfers = req.body;
         const response = await transferPlayer(
             transfers.player_id,
@@ -160,7 +221,7 @@ app.post(`/post-transfers`,async (req, res) => {
 })
 
 
-app.get('/transfers' , async (req, res) => {
+app.get('/transfers' , authenticateToken, async (req, res) => {
     try{
         const transfers = await getAllTransfers();
         res.json(transfers);
@@ -171,7 +232,7 @@ app.get('/transfers' , async (req, res) => {
     }
 })
 
-app.post(`/league-records`, async (req, res) => {
+app.post(`/league-records`, authenticateToken, async (req, res) => {
     try{
         const query = req.body;
         let leagueRecords;
@@ -190,7 +251,7 @@ app.post(`/league-records`, async (req, res) => {
     }
 })
 
-app.post(`/club-records`, async (req, res) => {
+app.post(`/club-records`, authenticateToken, async (req, res) => {
     try{
         const query = req.body;
         let clubRecords;
@@ -217,7 +278,7 @@ app.post(`/club-records`, async (req, res) => {
     }
 })
 
-app.post(`/player-records`, async (req, res) => {
+app.post(`/player-records`, authenticateToken, async (req, res) => {
     try{
         const query = req.body;
         let playerRecords;
@@ -244,7 +305,7 @@ app.post(`/player-records`, async (req, res) => {
 
 getTotalClubWages
 
-app.post(`/formation`, async (req, res) => {
+app.post(`/formation`, authenticateToken, async (req, res) => {
     try{
         const query = req.body;
         let formation;

@@ -3,22 +3,23 @@ import { api } from './api/data.jsx';
 import { Link, NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
+import { useAuth } from './AuthContext.jsx';
+
 
 import './styles/clubs.css';
 
 export default function Leagues() {
+    const {token,user} = useAuth(); 
     const [clubs, setClubs] = useState([]);
     const [input, setInput] = useState('');
 
     useEffect(() => {
         async function fetch() {
-            const fetchedClubs = await getAllClubs(input);
+            const fetchedClubs = await getAllClubs(input,token);
             setClubs(fetchedClubs);
         }
         fetch();
     }, [input]);
-
-
 
 
 
@@ -55,9 +56,9 @@ export default function Leagues() {
     );
 }
 
-async function getAllClubs(input) {
+async function getAllClubs(input,token) {
     try {
-        const response = await api.get(`/clubs?search=${input}%`);
+        const response = await api.get(`/clubs?search=${input}%`, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         console.error('Error fetching clubs', error);

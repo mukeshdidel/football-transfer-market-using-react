@@ -4,16 +4,21 @@ import { api } from '../api/data.jsx';
 import { Link } from "react-router-dom";
 import moment from "moment";
 
+import { useAuth } from '../AuthContext.jsx';
+
+
 
 export default function LeagueRecords(){
-
+    
+    const {token,user} = useAuth();
+    
     const [leagueRecords, setLeagueRecords] = useState([]);
     const [selectedLeagueRecord, setSelectedLeagueRecord] = useState('total-league-wages');
 
     useEffect(()=>{
         async function fetch(){
             const query = 'total-league-wages';
-            const fetchedLeagueRecords = await getLeagueRecords(query);
+            const fetchedLeagueRecords = await getLeagueRecords(query,token);
             setLeagueRecords(fetchedLeagueRecords);
         }     
         fetch();     
@@ -25,7 +30,7 @@ export default function LeagueRecords(){
         const query = e.target.value;
         setSelectedLeagueRecord(query);
 
-        const fetchedLeagueRecords = await getLeagueRecords(query);
+        const fetchedLeagueRecords = await getLeagueRecords(query,token);
         setLeagueRecords(fetchedLeagueRecords);
     }
 
@@ -76,9 +81,9 @@ export default function LeagueRecords(){
     );
 }
 
-async function getLeagueRecords(query){
+async function getLeagueRecords(query,token){
     try{
-        const response = await api.post('/league-records', {query: query});
+        const response = await api.post('/league-records', {query: query}, { headers: { Authorization: `Bearer ${token}` } });
         return response.data;
     }catch(error){
         console.error(error);

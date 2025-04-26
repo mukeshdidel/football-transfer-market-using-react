@@ -1,0 +1,35 @@
+.user{
+    color : white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.user form{
+    border: 1px solid white;
+    padding: 1rem;
+    border-radius: 20px;
+    background-color: rgba(128, 128, 128, 0.24);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.user input{
+    margin : 0.5rem;
+    padding: 0.5rem;
+}
+
+.user button{
+    margin : 0.5rem;
+    padding: 0.5rem;
+    border-style: none;
+}
+
+.user button:hover{
+    background-color: rgb(198, 185, 185);
+    cursor: pointer;
+
+}
