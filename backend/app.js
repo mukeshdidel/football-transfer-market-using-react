@@ -8,9 +8,10 @@ import { getAllLeagues,getLeagueInfoById,addLeague, getAllClubs, getClub, getClu
 const app = express();
 
 app.use(express.json());
-app.use(cors())
-app.use(express.urlencoded({ extended: false }));
-
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true 
+}))
 const jwt_secret_key = 'MuKeSh@sEcReT_kEy_FoOtBaLl&MaRkEt';
 
 
@@ -39,6 +40,7 @@ app.post('/login', async (req, res) => {
     try{
         const {username, password} = req.body;
         const [user] = await fetchUser(username);
+
         if(!user){
             return res.status(401).json({error: 'user not found'});
         }
@@ -65,11 +67,17 @@ function authenticateToken(req, res, next){
         return res.sendStatus(401);
     }
 
-    jwt.verify(token, jwt_secret_key, (err, user)=>{
-        if(err) return res.sendStatus(403);
+    const verify = jwt.verify(token, jwt_secret_key)
+
+    console.log("verify: ", verify);
+    next();
+
+/*     if(verify){
         req.user = user;
         next();
-    })
+    } else{
+        return res.sendStatus(403);
+    } */
 }
 
 app.get('/leagues', authenticateToken, async (req, res) => {
@@ -332,6 +340,6 @@ app.use((err,req,res,next) => {
     res.status(500).send('something went wrong')
 })
 
-app.listen(5000, function () {
+app.listen(5000,() => {
     console.log('Server is running on port 5000');  // Server started on port 5000
 })

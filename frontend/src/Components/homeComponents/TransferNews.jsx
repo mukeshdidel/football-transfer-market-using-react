@@ -19,7 +19,7 @@ export default function TransferNews(){
             setLast5TransferNews(fetchedTransferNews);
         }
         fetch();
-    });
+    },[]);
 
     return (
         <>

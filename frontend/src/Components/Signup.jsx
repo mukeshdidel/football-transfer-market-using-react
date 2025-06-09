@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 import './styles/user.css'
 
 export default function Signup() {
@@ -39,6 +39,7 @@ export default function Signup() {
           required
         />
         <button type="submit">Signup</button>
+        <h3>Already have an account? <Link to="/login" style={{color: 'blue'}}>login</Link></h3>
       </form>
       <p>{message}</p>
     </div>

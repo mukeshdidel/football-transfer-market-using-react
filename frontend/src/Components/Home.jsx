@@ -18,11 +18,10 @@ export default function Home(){
     const navigate = useNavigate();
     const {token,user} = useAuth();
 
-    useEffect(()=>{
-        if(!token){
-            navigate('/login');
-        }
+    useEffect(() => {
+        console.log(user)
     },[])
+
 
 
     return (
