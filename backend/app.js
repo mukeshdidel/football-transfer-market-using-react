@@ -69,16 +69,23 @@ function authenticateToken(req, res, next){
 
     const verify = jwt.verify(token, jwt_secret_key)
 
-    console.log("verify: ", verify);
-    next();
-
-/*     if(verify){
-        req.user = user;
+    if(verify){
+        req.user = verify;
         next();
     } else{
         return res.sendStatus(403);
-    } */
+    }
 }
+
+app.get('/me', authenticateToken, (req, res) => {
+    const user = req.user;
+    if (!user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+    res.json(user);
+})
+
+
 
 app.get('/leagues', authenticateToken, async (req, res) => {
     try{

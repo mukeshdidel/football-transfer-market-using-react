@@ -16,11 +16,28 @@ import Login from "./Components/Login.jsx";
 
 import "./App.css";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx";
+import { useEffect } from "react";
+import { api } from "./Components/api/data.jsx";
 
 
 function App() {
   const {token, setUser} = useAuth();
   
+  useEffect(()=>{
+    async function fetchUser() {
+      try {
+        if (token){
+          const response = await api.get('/me', { headers: { Authorization: `Bearer ${token}` } });
+          const user = response.data;
+          setUser(user);
+        } 
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchUser();
+    
+  },[])
 
   return (
     <BrowserRouter>
