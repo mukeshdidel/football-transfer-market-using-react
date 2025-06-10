@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 
 import { useAuth } from './Components/AuthContext';
 
@@ -40,27 +40,41 @@ function App() {
   },[])
 
   return (
-    <BrowserRouter>
-    { token ? <NavBar/> : null}
-   
-
-      
+    <BrowserRouter>  
       <Routes>
 
         <Route path="/login" element={<Login />}/>
         <Route path="/signup" element={<Signup />}/>
 
-        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>}/>
-        <Route path="/leagues" element={<ProtectedRoute><Leagues /></ProtectedRoute>}/>
-        <Route path="/leagues/:id" element={<ProtectedRoute><League /></ProtectedRoute>}/>
-        <Route path="/clubs" element={<ProtectedRoute><Clubs /></ProtectedRoute>}/>
-        <Route path="/clubs/:id" element={<ProtectedRoute><Club /></ProtectedRoute>}/>
-        <Route path="/players" element={<ProtectedRoute><Players /></ProtectedRoute>}/>
-        <Route path="/players/:id" element={<ProtectedRoute><Player /></ProtectedRoute>}/>
-        <Route path="Transfers" element={<ProtectedRoute><Transfers /></ProtectedRoute>}/>
+        <Route path='/' element={<Layout />}>
+          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>}/>
+          <Route path="/leagues" element={<ProtectedRoute><Leagues /></ProtectedRoute>}/>
+          <Route path="/leagues/:id" element={<ProtectedRoute><League /></ProtectedRoute>}/>
+          <Route path="/clubs" element={<ProtectedRoute><Clubs /></ProtectedRoute>}/>
+          <Route path="/clubs/:id" element={<ProtectedRoute><Club /></ProtectedRoute>}/>
+          <Route path="/players" element={<ProtectedRoute><Players /></ProtectedRoute>}/>
+          <Route path="/players/:id" element={<ProtectedRoute><Player /></ProtectedRoute>}/>
+          <Route path="Transfers" element={<ProtectedRoute><Transfers /></ProtectedRoute>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   );
+}
+
+const Layout = () => {
+  return <div style={{display: 'flex', flexDirection: 'column', height: '100vh'}}>
+    <div style={{height: '10vh'}}>
+      <NavBar />
+    </div>
+    <div>
+      <div style={{flex: 1, padding: '20px', height: '85vh', overflowY: 'auto'}}>
+      <Outlet />
+      </div>
+      <footer style={{textAlign: 'center', padding: '10px', backgroundColor: '#f1f1f1', height: '5vh'}}>
+        <p>© 2023 Football Manager. All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
 }
 
 export default App;
